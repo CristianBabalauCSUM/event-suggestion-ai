@@ -13,7 +13,9 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
+    KronaOne: require('../assets/fonts/Krona_One/KronaOne-Regular.ttf'),
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    Kodchasan: require('../assets/fonts/Kodchasan/Kodchasan-Regular.ttf'),
   });
 
   useEffect(() => {
