@@ -12,10 +12,10 @@ export default function HeaderWelcome(
 ) {
   return (
     <View style = {styles.headerContainer}>
-      <ThemedText type="title" style = {{fontFamily : "KronaOne"}}>Hey  
-        <ThemedText type = "title" lightColor='#F7B538' style = {{fontFamily : "KronaOne"}} > {username} </ThemedText>!
+      <ThemedText  reverse = {true} type="title" style = {{fontFamily : "KronaOne"}}>Hey  
+        <ThemedText reverse = {true} type = "title" lightColor='#F7B538' style = {{fontFamily : "KronaOne"}} > {username}</ThemedText>,
         </ThemedText>
-      <ThemedText type="subtitle" style = {{fontFamily : "Kodchasan"}}>Hey, Chris!</ThemedText>
+      <ThemedText reverse = {true}  type="subtitle" style = {{fontFamily : "Kodchasan"}}>Check out what is new today</ThemedText>
     </View>
   )
 }
@@ -24,8 +24,9 @@ const styles = StyleSheet.create({
     headerContainer : {
         flex: 1,
         width: '100%',
-        height: 'auto',
+        height: '100%',
         justifyContent: 'flex-start',
-        alignItems: 'center',
+        alignSelf: 'flex-start',
+        textAlign: 'center',
     }
 })

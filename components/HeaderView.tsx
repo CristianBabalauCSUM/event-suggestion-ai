@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import HeaderWelcome from '@/components/eventmain/HeaderWelcome';
+import EventDefaultTab from '@/components/eventmain/EventDefaultTab';
 
 
 
@@ -22,13 +23,13 @@ export default function HeaderView ({
     headerBackgroundColor 
 } : Props) {
     return (
-        <LinearGradient 
-            colors={['#4c669f', '#F3F3F3']} // Top to bottom gradient
+        <View 
             style={[styles.headerStyle]}>
-            <SafeAreaView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}> 
+            <SafeAreaView style={[styles.safeAreaView]}> 
                 <HeaderWelcome username = "Chris"/>
+                <EventDefaultTab />
             </SafeAreaView>
-        </LinearGradient>
+        </View>
         
     );
 }
@@ -36,31 +37,14 @@ export default function HeaderView ({
 const styles = StyleSheet.create({
     headerStyle : {
         flex: 1,
-        height: 411,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
-        backgroundColor: '#4c669f',
+        height: 411,        
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#1B2432',
+        flexDirection: 'column',
     },
-    gradientTop: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        opacity: 0.8,
-      },
-      gradient: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      content: {
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      text: {
-        fontSize: 24,
-        color: '#fff',
-      },
+    safeAreaView : { flex: 1, alignItems: "center", justifyContent: "center" , width: "100%", marginHorizontal: 10, paddingHorizontal: 10}
+
 });
