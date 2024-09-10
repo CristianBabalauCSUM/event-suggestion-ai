@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedView } from '@/components/ThemedView'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
 import HeaderView from '@/components/HeaderView';
+import SquareGridEvent from '@/components/eventmain/SquareGridEvent';
 
 export default function EventMainScreen() {
   return (
@@ -11,9 +12,8 @@ export default function EventMainScreen() {
         onScroll={(event) => { console.log(event.nativeEvent.contentOffset)}}
         scrollEventThrottle={16}
     >        
-        <HeaderView headerBackgroundColor={'#A1CEDC'}> 
-
-        </HeaderView>
+        <HeaderView headerBackgroundColor={'#A1CEDC'} /> 
+        <SquareGridEvent />
     </ScrollView>
   )
 }

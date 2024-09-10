@@ -46,7 +46,7 @@ export const SliderData = [
     },
     {
         title: 'Team Stand-up Meeting',
-        description: 'Daily sync-up with the project team',
+        description: 'Daily sync-up with the project team toby melcher is a good person',
         location: 'Zoom',
         start: '2024-09-02T09:00:00',
         end: '2024-09-02T09:30:00',

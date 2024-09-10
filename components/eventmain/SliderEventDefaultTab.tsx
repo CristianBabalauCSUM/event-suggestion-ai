@@ -9,7 +9,7 @@ export default function SliderEventDefaultTab() {
         <FlatList 
             data={SliderData} 
             renderItem = {({item, index}) => (
-                    <EventDefaultTab item={item} index ={index} />
+                    <EventDefaultTab item={item} index ={index} containerStyle={{width:270, height: 250}} />
                 )}
             horizontal
          > </FlatList>
