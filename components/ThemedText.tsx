@@ -52,10 +52,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     lineHeight: 32,
+    fontFamily: 'KronaOne',
+
   },
   subtitle: {
     fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'Kodchasan',
+
   },
   link: {
     lineHeight: 30,

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     headerContainer : {
         flex: 1,
         width: '100%',
-        height: '100%',
+        maxHeight: 80,
         justifyContent: 'flex-start',
         alignSelf: 'flex-start',
         textAlign: 'center',

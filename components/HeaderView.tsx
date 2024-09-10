@@ -12,6 +12,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import HeaderWelcome from '@/components/eventmain/HeaderWelcome';
 import EventDefaultTab from '@/components/eventmain/EventDefaultTab';
+import SliderEventDefaultTab from './eventmain/SliderEventDefaultTab';
 
 
 
@@ -27,7 +28,8 @@ export default function HeaderView ({
             style={[styles.headerStyle]}>
             <SafeAreaView style={[styles.safeAreaView]}> 
                 <HeaderWelcome username = "Chris"/>
-                <EventDefaultTab />
+                <SliderEventDefaultTab/>
+
             </SafeAreaView>
         </View>
         
@@ -37,7 +39,7 @@ export default function HeaderView ({
 const styles = StyleSheet.create({
     headerStyle : {
         flex: 1,
-        height: 411,        
+        height: 410,        
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
         justifyContent: 'center',
