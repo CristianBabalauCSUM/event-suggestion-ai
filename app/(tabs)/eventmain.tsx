@@ -14,7 +14,11 @@ export default function EventMainScreen() {
           scrollEventThrottle={16}
       >        
           <HeaderView headerBackgroundColor={'#A1CEDC'} /> 
-          <SquareGridEvent />
+          
+          <SquareGridEvent headerText='Find new connections' subHeaderText='Check these activities' type = 'any' sliced={4}/>
+          
+          <SquareGridEvent headerText='Find new connections' subHeaderText='Check these activities' type = 'any' sliced={4}/>
+
       </ScrollView>
     </View>
   )

@@ -1,34 +1,27 @@
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import React from "react";
-import EventDefaultTab from "@/components/eventmain/EventDefaultTab";
 import { SliderData } from "@/data/SliderData";
+import EventDefaultTab from "@/components/eventmain/EventDefaultTab";
 import { ThemedText } from "../ThemedText";
 import { router } from "expo-router";
 
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-type Props = {
-  headerText: string;
-  subHeaderText: string;
-  type: string;
-  sliced: number;
-  anythingElse?: string;
-};
 
-export default function SquareGridEvent({headerText, subHeaderText, type, sliced = 4}: Props) {
+export default function SquareGridEvent() {
   return (
     <View style={styles.container}>
       <ThemedText type="title" style={styles.title}>
-        {headerText}
+        Check out some sport activities 🏓
       </ThemedText>
-      <ThemedText type="subtitle" style = {styles.subtitle}>
-        {subHeaderText}
+      <ThemedText type="subtitle">
+        Events soon to come
         </ThemedText>
 
       <FlatList
-        data={SliderData.slice(0, sliced)}
-        renderItem={ ({ item, index }) => (
+        data={SliderData}
+        renderItem={({ item, index }) => (
           <EventDefaultTab
             item={item}
             index={index}
@@ -42,7 +35,6 @@ export default function SquareGridEvent({headerText, subHeaderText, type, sliced
             }}
           />
         )}
-        
         numColumns={2}
         scrollEnabled={false} // Disable FlatList scrolling to prevent conflicts
         columnWrapperStyle={styles.row} // Style for the row
@@ -64,14 +56,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: "#fff",
   },
-  subtitle: {
-    marginBottom: 20,
-  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 0,
-    lineHeight: 30,
+    marginBottom: 20,
   },
   grid: {
     justifyContent: "center", // Center the grid content

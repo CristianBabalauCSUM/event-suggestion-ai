@@ -12,6 +12,7 @@ import React from "react";
 import { EventSlide } from "@/data/SliderData";
 import { ThemedText } from "../ThemedText";
 import { LinearGradient } from "expo-linear-gradient";
+import { truncateText } from "@/utils/textUtils";
 
 type Props = {
   item: EventSlide;
@@ -30,14 +31,7 @@ export default function EventDefaultTab({
   textStyle,
   onPress,
 }: Props & Styling) {
-  const title = 
-    item.title.length > 30
-      ? item.title.substring(0, 30) + "..."
-      : item.title;
-  const description =
-    item.description.length > 20
-      ? item.description.substring(0, 20) + "..."
-      : item.description;
+
 
   return (
     <View style={[styles.shadowStyle]}>
@@ -53,10 +47,10 @@ export default function EventDefaultTab({
           />
           <View style={{ padding: 10 }}>
             <ThemedText style={[styles.text, textStyle]} type="title">
-              {title}
+              {truncateText(item.title, 20)}
             </ThemedText>
             <ThemedText style={[styles.text, textStyle]} type="subtitle">
-              {description}
+              {truncateText(item.description, 20)}
             </ThemedText>
           </View>
         </ImageBackground>
