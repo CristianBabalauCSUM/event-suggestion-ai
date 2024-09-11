@@ -8,13 +8,15 @@ import SquareGridEvent from '@/components/eventmain/SquareGridEvent';
 
 export default function EventMainScreen() {
   return (
-    <ScrollView
-        onScroll={(event) => { console.log(event.nativeEvent.contentOffset)}}
-        scrollEventThrottle={16}
-    >        
-        <HeaderView headerBackgroundColor={'#A1CEDC'} /> 
-        <SquareGridEvent />
-    </ScrollView>
+    <View>
+
+      <ScrollView
+          scrollEventThrottle={16}
+      >        
+          <HeaderView headerBackgroundColor={'#A1CEDC'} /> 
+          <SquareGridEvent />
+      </ScrollView>
+    </View>
   )
 }
 

@@ -3,26 +3,50 @@ import React from "react";
 import { SliderData } from "@/data/SliderData";
 import EventDefaultTab from "@/components/eventmain/EventDefaultTab";
 import { ThemedText } from "../ThemedText";
+import { router } from "expo-router";
+
+
+const ItemSeparator = () => <View style={styles.separator} />;
+
 
 export default function SquareGridEvent() {
   return (
     <View style={styles.container}>
-      <ThemedText type = "title" style={styles.title}>Find new friends</ThemedText>
+      <ThemedText type="title" style={styles.title}>
+        Find new friends
+      </ThemedText>
 
       <FlatList
         data={SliderData}
         renderItem={({ item, index }) => (
-          <EventDefaultTab item={item} index={index} containerStyle={{width:170, height: 170}} textStyle={{fontSize: 16, lineHeight:20}} />
+          <EventDefaultTab
+            item={item}
+            index={index}
+            containerStyle={{ width: 160, height: 160 }}
+            textStyle={{ fontSize: 16, lineHeight: 20 }}
+            onPress={() => {
+              router.push({
+                pathname: `/(events)/eventpage`,
+                params: { item: JSON.stringify(item) } // Serialize the item
+              });
+            }}
+          />
         )}
         numColumns={2}
+        scrollEnabled={false} // Disable FlatList scrolling to prevent conflicts
         columnWrapperStyle={styles.row} // Style for the row
         contentContainerStyle={styles.grid} // Style for the whole grid
+        ItemSeparatorComponent={ItemSeparator} // Add vertical gap
+
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  separator: {
+    height: 20, // Adjust the height to set the vertical gap
+  },
   container: {
     flex: 1,
     paddingTop: 20,

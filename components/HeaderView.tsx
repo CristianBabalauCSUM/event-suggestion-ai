@@ -29,7 +29,6 @@ export default function HeaderView ({
             <SafeAreaView style={[styles.safeAreaView]}> 
                 <HeaderWelcome username = "Chris"/>
                 <SliderEventDefaultTab/>
-
             </SafeAreaView>
         </View>
         
