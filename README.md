@@ -1,6 +1,17 @@
-# Welcome to your Expo app 👋
+# Welcome to our Event-Suggestion App 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project was created as a project for the Inteligent User Interface Course at the UM BCS. <br>
+The main purpouse of the application is to create a local area event suggester, that will consider a lot of factors before giving you a <b>  matched event </b>, such as:
+<ul>
+   <li> Your free time slots, analyzed from the calendar app </li>
+   <li> Hobby Analyzers </li>
+   <li> Mood questionnaire  </li>
+   <li> Distance to the event </li>
+</ul>
+
+<br> 
+
+Moreover, our application comes with offers on how to spend user's time in case there is no public event incoming. It can suggest user a variety of actions, inspired by his own personality.
 
 ## Get started
 
