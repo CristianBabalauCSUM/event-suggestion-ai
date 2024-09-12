@@ -4,3 +4,7 @@ export function truncateText(text: string, length: number){
     } 
     return text;
 }
+
+export function formatTitleToId(title: string){
+    return title.replace(/ /g, '-').toLowerCase();
+}

@@ -4,6 +4,7 @@ import EventDefaultTab from "@/components/eventmain/EventDefaultTab";
 import { SliderData } from "@/data/SliderData";
 import { ThemedText } from "../ThemedText";
 import { router } from "expo-router";
+import { filterEvents } from "@/utils/FilterEvents";
 
 
 const ItemSeparator = () => <View style={styles.separator} />;
@@ -11,12 +12,15 @@ const ItemSeparator = () => <View style={styles.separator} />;
 type Props = {
   headerText: string;
   subHeaderText: string;
-  type: string;
+  type: string | string[];
   sliced: number;
   anythingElse?: string;
 };
 
-export default function SquareGridEvent({headerText, subHeaderText, type, sliced = 4}: Props) {
+export default function SquareGridEvent({headerText, subHeaderText, type = 'any', sliced = 4}: Props) {
+  
+  const data = filterEvents(SliderData, type);
+  
   return (
     <View style={styles.container}>
       <ThemedText type="title" style={styles.title}>
@@ -27,7 +31,7 @@ export default function SquareGridEvent({headerText, subHeaderText, type, sliced
         </ThemedText>
 
       <FlatList
-        data={SliderData.slice(0, sliced)}
+        data={data.slice(0, sliced)}
         renderItem={ ({ item, index }) => (
           <EventDefaultTab
             item={item}
