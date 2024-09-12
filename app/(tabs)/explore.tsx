@@ -75,14 +75,15 @@ export default function TabTwoScreen() {
 
   return (
     <>
-      <SafeAreaView>
-        <View style={styles.headerContainer}>
-          <ThemedText reverse = {true} type="title" style={[styles.headerTitle, {fontFamily : "KronaOne"}]}>Your Events</ThemedText>
-          <ThemedText reverse = {true}  type="subtitle" style={styles.headerSubtitle}>
+      <View style={styles.headerContainer}>
+        <SafeAreaView>
+          <ThemedText reverse={true} type="title" style={[styles.headerTitle, { fontFamily: "KronaOne" }]}>Your Events</ThemedText>
+          <ThemedText reverse={true} type="subtitle" style={styles.headerSubtitle}>
             These are all your events
           </ThemedText>
-        </View>
-
+        </SafeAreaView>
+      </View>
+      <View>
         {allItems.length > 0 ? (
           <FlatList
             data={allItems}
@@ -91,25 +92,26 @@ export default function TabTwoScreen() {
         ) : (
           <ThemedText style={styles.noEventsText}>No events available.</ThemedText>
         )}
-      </SafeAreaView>
+      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
   headerContainer: {
+    height: 150,
     backgroundColor: "#1B2432",
     padding: 20,
     paddingBottom: 30,
-    borderBottomLeftRadius: 10, 
-    borderBottomRightRadius: 10, 
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
   headerTitle: {
     fontSize: 30,
     fontWeight: "800",
     fontFamily: "KronaOne",
-    color: "#F3A953", 
-    textAlign: "center", 
+    color: "#F3A953",
+    textAlign: "center",
     letterSpacing: 1,
   },
   headerSubtitle: {
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
     color: "#E4B788",
     textAlign: "center",
     marginTop: 10,
-    fontFamily: "Kodchasan", 
+    fontFamily: "Kodchasan",
   },
   noEventsText: {
     fontSize: 16,

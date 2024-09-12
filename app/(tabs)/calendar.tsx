@@ -11,12 +11,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { SliderData } from "@/data/SliderData";
 import { router } from "expo-router";
 import { ThemedText } from "@/components/ThemedText";
+import SingleEvent from "@/components/calendar/SingleEvent";
+import EventSection from "@/components/calendar/EventSection";
 
 const CalendarPage = () => {
   const [selectedDate, setSelectedDate] = useState<string>("");
 
   const daysInMonth = 30;
-
   const renderCalendarDays = () => {
     let days = [];
     for (let i = 1; i <= daysInMonth; i++) {
@@ -46,50 +47,48 @@ const CalendarPage = () => {
       return <ThemedText style={styles.noEventText}>No Events</ThemedText>;
     } else {
       return events.map((event, index) => (
-        <View key={index} style={styles.eventBox}>
-          <TouchableOpacity
-          style={{flexDirection: 'row', width: '100%',justifyContent: 'space-between'}}
-            onPress={() => {
-                router.push({
-                    pathname: `/(events)/eventpage`,
-                    params: { item: JSON.stringify(event) } // Serialize the item
-                  });
-            }}
-          >
-            <View>
-              <ThemedText style={styles.eventTitle}>{event.title}</ThemedText>
-              <ThemedText>{event.time}</ThemedText>
-              <ThemedText>{event.location}</ThemedText>
-            </View>
-            <View>
-              <Image source={event.image} style={styles.image} />
-            </View>
-          </TouchableOpacity>
-        </View>
+        <SingleEvent key={index} event={event} />
       ));
     }
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        {/* Calendar Section */}
-        <ThemedText style={styles.headerText}>September 2024</ThemedText>
-        <View style={styles.calendarGrid}>{renderCalendarDays()}</View>
-
-        {/* Event Section */}
-        <View style={styles.eventsSection}>
-          <ThemedText type="subtitle" style={styles.eventHeader}>
-            Events for {selectedDate || "Select a Date"}
-          </ThemedText>
-          <ScrollView>{renderSchedules()}</ScrollView>
+    <>
+      <View style={styles.headerContainer}>
+        <SafeAreaView>
+          <ThemedText reverse={true} type="title" style={styles.headerTitle}>Calendar</ThemedText>
+        </SafeAreaView>
+      </View>
+      <View style={styles.safeArea}>
+        <View style={styles.container}>
+          <ThemedText style={styles.headerText}>September 2024</ThemedText>
+          <View style={styles.calendarGrid}>{renderCalendarDays()}</View>
+          <EventSection
+            selectedDate={selectedDate}
+            renderSchedules={renderSchedules}
+          />
         </View>
       </View>
-    </SafeAreaView>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
+
+  headerTitle: {
+    fontSize: 30,
+    fontWeight: "800",
+    fontFamily: "KronaOne",
+    color: "#F3A953",
+    textAlign: "center",
+    letterSpacing: 1,
+  },
+  headerContainer: {
+    height: 120,
+    backgroundColor: "#1B2432",
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
   image: {
     width: 50,
     height: 50,
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: "#f5f5f5", // Ensure background color extends into the safe area
+    backgroundColor: "#f5f5f5",
   },
   container: {
     flex: 1,
@@ -130,33 +129,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#87CEEB",
   },
   dayText: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  eventsSection: {
-    flex: 1,
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    borderColor: "#ddd",
-    borderWidth: 1,
-  },
-  eventHeader: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  eventBox: {
-    padding: 15,
-    marginVertical: 5,
-    backgroundColor: "#f0f8ff",
-    borderRadius: 5,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  eventTitle: {
     fontSize: 16,
     fontWeight: "bold",
   },
