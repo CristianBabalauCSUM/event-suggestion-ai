@@ -1,4 +1,3 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   StyleSheet,
   Image,
@@ -8,7 +7,6 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { useState, useEffect, memo } from "react";
@@ -19,8 +17,8 @@ import React from "react";
 // Memoized EventItem component
 const EventItem = memo(({ item }: any) => {
   const newItem = JSON.parse(item.value);
-  if (!item || !item.value) return null; // Handle missing item or value
-  const { title, image, date, time, location } = newItem;
+  if (!item || !item.value) return null;
+  const { title, image, end, time, location } = newItem;
 
   return (
     <TouchableOpacity
@@ -28,18 +26,17 @@ const EventItem = memo(({ item }: any) => {
       onPress={() => {
         router.push({
           pathname: `/(events)/eventpage`,
-          params: { item: JSON.stringify(item) }, // Serialize the item
+          params: { item: JSON.stringify(newItem) },
         });
-        console.log("Event clicked:", title);
       }}
     >
       <Image source={image} style={styles.eventImage} />
       <View style={styles.eventDetails}>
-        <Text style={styles.eventTitle}>{title}</Text>
-        <Text style={styles.eventTimeDate}>
-          {date} | {time}
-        </Text>
-        <Text style={styles.eventLocation}>{location}</Text>
+        <ThemedText type="subtitle" style={styles.eventTitle}>{title}</ThemedText>
+        <ThemedText style={styles.eventTimeDate}>
+          {time} | {end.split("T")[0]}
+        </ThemedText>
+        <ThemedText style={styles.eventLocation}>{location}</ThemedText>
       </View>
     </TouchableOpacity>
   );
@@ -79,18 +76,20 @@ export default function TabTwoScreen() {
   return (
     <>
       <SafeAreaView>
-        <ThemedView style={styles.titleContainer}>
-          <ThemedText type="title">Your Events</ThemedText>
-        </ThemedView>
-        <ThemedText>These are all your events</ThemedText>
+        <View style={styles.headerContainer}>
+          <ThemedText reverse = {true} type="title" style={[styles.headerTitle, {fontFamily : "KronaOne"}]}>Your Events</ThemedText>
+          <ThemedText reverse = {true}  type="subtitle" style={styles.headerSubtitle}>
+            These are all your events
+          </ThemedText>
+        </View>
 
         {allItems.length > 0 ? (
           <FlatList
             data={allItems}
-            renderItem={({ item, index }) => <EventItem item={item} />}
+            renderItem={({ item }) => <EventItem item={item} />}
           />
         ) : (
-          <ThemedText>No events available.</ThemedText> // Display message when no items are available
+          <ThemedText style={styles.noEventsText}>No events available.</ThemedText>
         )}
       </SafeAreaView>
     </>
@@ -98,31 +97,50 @@ export default function TabTwoScreen() {
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: "#808080",
-    bottom: -90,
-    left: -35,
-    position: "absolute",
+  headerContainer: {
+    backgroundColor: "#1B2432",
+    padding: 20,
+    paddingBottom: 30,
+    borderBottomLeftRadius: 10, 
+    borderBottomRightRadius: 10, 
   },
-  titleContainer: {
-    flexDirection: "row",
-    gap: 8,
+  headerTitle: {
+    fontSize: 30,
+    fontWeight: "800",
+    fontFamily: "KronaOne",
+    color: "#F3A953", 
+    textAlign: "center", 
+    letterSpacing: 1,
+  },
+  headerSubtitle: {
+    fontSize: 16,
+    color: "#E4B788",
+    textAlign: "center",
+    marginTop: 10,
+    fontFamily: "Kodchasan", 
+  },
+  noEventsText: {
+    fontSize: 16,
+    color: "#FFFFFF",
+    textAlign: "center",
+    marginTop: 50,
   },
   eventContainer: {
     flexDirection: "row",
-    padding: 15,
-    marginVertical: 10,
-    backgroundColor: "#fff",
-    borderRadius: 10,
+    padding: 20,
+    marginVertical: 12,
+    backgroundColor: "#FFF",
+    borderRadius: 15,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
+    marginHorizontal: 20,
   },
   eventImage: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     borderRadius: 10,
     marginRight: 15,
   },
@@ -132,7 +150,7 @@ const styles = StyleSheet.create({
   },
   eventTitle: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: "600",
     marginBottom: 5,
     color: "#333",
   },
@@ -144,28 +162,5 @@ const styles = StyleSheet.create({
   eventLocation: {
     fontSize: 14,
     color: "#555",
-    marginBottom: 10,
-  },
-  eventDescription: {
-    fontSize: 14,
-    color: "#666",
-    marginBottom: 10,
-  },
-  eventTypeContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: 10,
-  },
-  eventTypeBadge: {
-    backgroundColor: "#e0f7fa",
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    marginRight: 5,
-    marginBottom: 5,
-  },
-  eventTypeText: {
-    fontSize: 12,
-    color: "#00796b",
   },
 });

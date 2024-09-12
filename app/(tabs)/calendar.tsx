@@ -10,6 +10,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SliderData } from "@/data/SliderData";
 import { router } from "expo-router";
+import { ThemedText } from "@/components/ThemedText";
 
 const CalendarPage = () => {
   const [selectedDate, setSelectedDate] = useState<string>("");
@@ -29,7 +30,7 @@ const CalendarPage = () => {
           ]}
           onPress={() => setSelectedDate(dayString)}
         >
-          <Text style={styles.dayText}>{i}</Text>
+          <ThemedText style={styles.dayText}>{i}</ThemedText>
         </TouchableOpacity>
       );
     }
@@ -42,7 +43,7 @@ const CalendarPage = () => {
     );
 
     if (events.length === 0) {
-      return <Text style={styles.noEventText}>No Events</Text>;
+      return <ThemedText style={styles.noEventText}>No Events</ThemedText>;
     } else {
       return events.map((event, index) => (
         <View key={index} style={styles.eventBox}>
@@ -56,9 +57,9 @@ const CalendarPage = () => {
             }}
           >
             <View>
-              <Text style={styles.eventTitle}>{event.title}</Text>
-              <Text>{event.time}</Text>
-              <Text>{event.location}</Text>
+              <ThemedText style={styles.eventTitle}>{event.title}</ThemedText>
+              <ThemedText>{event.time}</ThemedText>
+              <ThemedText>{event.location}</ThemedText>
             </View>
             <View>
               <Image source={event.image} style={styles.image} />
@@ -73,14 +74,14 @@ const CalendarPage = () => {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         {/* Calendar Section */}
-        <Text style={styles.headerText}>September 2024</Text>
+        <ThemedText style={styles.headerText}>September 2024</ThemedText>
         <View style={styles.calendarGrid}>{renderCalendarDays()}</View>
 
         {/* Event Section */}
         <View style={styles.eventsSection}>
-          <Text style={styles.eventHeader}>
+          <ThemedText type="subtitle" style={styles.eventHeader}>
             Events for {selectedDate || "Select a Date"}
-          </Text>
+          </ThemedText>
           <ScrollView>{renderSchedules()}</ScrollView>
         </View>
       </View>
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderWidth: 1,
     borderColor: "#ddd",
-    borderRadius: 5,
+    borderRadius: 10,
   },
   selectedDay: {
     backgroundColor: "#87CEEB",
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 10,
     backgroundColor: "#fff",
-    borderRadius: 5,
+    borderRadius: 10,
     borderColor: "#ddd",
     borderWidth: 1,
   },

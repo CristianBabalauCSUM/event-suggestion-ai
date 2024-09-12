@@ -19,6 +19,8 @@ export default function EventMainScreen() {
           
           <SquareGridEvent headerText='Let`s do some sports' subHeaderText='Active Lifestyle!' type = 'Exercise' sliced={4}/>
 
+          <SquareGridEvent headerText='Resturants and Bars' subHeaderText='Food and Drinks' type = 'any' sliced={4}/>
+
       </ScrollView>
     </View>
   )

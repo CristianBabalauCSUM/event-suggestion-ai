@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet, Button, Animated } from "react-native";
+import { View, Text, Image, StyleSheet, Button, Animated, TouchableOpacity } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { getDataAsyncStorage, removeDataAsyncStorage, storeDataAsyncStorage } from "@/utils/AsyncStorage";
 import { formatTitleToId } from "@/utils/textUtils";
+import { ThemedText } from "@/components/ThemedText";
 
 export default function EventPage() {
-  // Get item data from route params and parse it from JSON
-  const { item } = useLocalSearchParams();
-  const parsedItem = item ? JSON.parse(item as string) : null;
+  const { item } : { item : string } = useLocalSearchParams();
 
+  const parsedItem = JSON.parse(item);
   const eventTitle = formatTitleToId(parsedItem.title);
 
 
@@ -43,7 +43,6 @@ export default function EventPage() {
   }, []); // Empty dependency array means this effect runs once when the component mounts
 
 
-  // If there is no parsed item, show an error message
   if (!parsedItem) {
     return (
       <View style={styles.container}>
@@ -75,43 +74,45 @@ export default function EventPage() {
     }; 
 
     Animated.timing(fadeAnim, {
-      toValue: 1, // Fade in
+      toValue: 1,
       duration: 500,
       useNativeDriver: true,
     }).start();
 
     setTimeout(() => {
         Animated.timing(fadeAnim, {
-          toValue: 0, // Fade out
+          toValue: 0,
           duration: 500,
           useNativeDriver: true,
-        }).start(() => setShowPopup(false)); // Set to false after animation ends
+        }).start(() => setShowPopup(false)); 
     }, 3000);
   };
   return (
     <>
       <Stack.Screen
         options={{
-          title: parsedItem.title, // Dynamically set the title from parsed item
-          headerBackTitle: "Back", // Custom back button title
+          title: parsedItem.title,
+          headerBackTitle: "Back", 
         }}
       />
 
       <View style={styles.container}>
         <Image source={parsedItem.image} style={styles.image} />
-        <Text style={styles.title}>{parsedItem.title}</Text>
-        <Text style={styles.description}>{parsedItem.description}</Text>
-        <Text style={styles.time}>{parsedItem.time}</Text>
-        <Text style={styles.location}>Location: {parsedItem.location}</Text>
+        <ThemedText style={styles.title}>{parsedItem.title}</ThemedText>
+        <ThemedText style={styles.description}>{parsedItem.description}</ThemedText>
+        <ThemedText style={styles.time}>{parsedItem.time}</ThemedText>
+        <ThemedText style={styles.location}>Location: {parsedItem.location}</ThemedText>
 
         {/* Subscribe Button */}
         <View style={styles.buttonContainer}>
-          <Button
-            title={subscriptionStatus.buttonText}
+          <TouchableOpacity
+            style={{ backgroundColor: "#F7B538", padding: 10, borderRadius: 5, alignItems: "center" }}
             onPress={() => {
               handleSubscribe();
             }}
-          />
+          >
+            <ThemedText>{subscriptionStatus.buttonText}</ThemedText>
+          </TouchableOpacity>
         </View>
       </View>
 
