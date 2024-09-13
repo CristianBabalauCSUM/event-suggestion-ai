@@ -1,12 +1,14 @@
-import { StyleSheet, Text, View, Modal, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, Modal, TextInput, Button, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
+import { ThemedText } from '../ThemedText';
 
 type NewEventModalProps = {
-    isOpen: boolean;
-    closeModal: () => void;
+  date: string;
+  isOpen: boolean;
+  closeModal: () => void;
 };
 
-export default function NewEventModal({ isOpen, closeModal }: NewEventModalProps) {
+export default function NewEventModal({ isOpen, closeModal, date }: NewEventModalProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
@@ -39,7 +41,7 @@ export default function NewEventModal({ isOpen, closeModal }: NewEventModalProps
     >
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Create New Event</Text>
+          <ThemedText style={styles.modalTitle}>Create New Event</ThemedText>
 
           {/* Event Title */}
           <TextInput
@@ -47,6 +49,7 @@ export default function NewEventModal({ isOpen, closeModal }: NewEventModalProps
             placeholder="Title"
             value={title}
             onChangeText={setTitle}
+
           />
 
           {/* Event Description */}
@@ -89,11 +92,15 @@ export default function NewEventModal({ isOpen, closeModal }: NewEventModalProps
             onChangeText={setTime}
           />
 
-          {/* Save Button */}
-          <Button title="Save Event" onPress={handleSave} />
+          <View>
+            <TouchableOpacity onPress={handleSave} style={{ alignItems: 'center' }}>
+              <ThemedText style={{ color: "blue" }}>Save Event</ThemedText>
+            </TouchableOpacity>
 
-          {/* Cancel Button */}
-          <Button title="Cancel" onPress={closeModal} color="red" />
+            <TouchableOpacity onPress={closeModal} style={{ alignItems: 'center' }}>
+              <ThemedText style={{ color: "red" }}>Cancel</ThemedText>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>

@@ -35,6 +35,7 @@ export default function EventSection({ selectedDate, renderSchedules }: EventSec
             <NewEventModal
                     isOpen={openNewEventModal}
                     closeModal={() => setOpenNewEventModal(false)}
+                    date={selectedDate}
                 />
         </View>
     )
