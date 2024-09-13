@@ -61,7 +61,7 @@ const CalendarPage = () => {
       </View>
       <View style={styles.safeArea}>
         <View style={styles.container}>
-          <ThemedText style={styles.headerText}>September 2024</ThemedText>
+          <ThemedText style={styles.headerText}>&lt;   September 2024   &gt;</ThemedText>
           <View style={styles.calendarGrid}>{renderCalendarDays()}</View>
           <EventSection
             selectedDate={selectedDate}
