@@ -81,6 +81,7 @@ export const SliderData = [
         type: ['Social', 'Ping Pong', 'Tournament', 'Active', 'Fun', 'Healthy', 'Exercise'],
         image: require('@/assets/images/icon.png'),
     },
+    
     {
         title: 'Foot Ball Tournament',
         description: 'Daily sync-up with the project team ',

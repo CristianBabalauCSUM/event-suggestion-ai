@@ -1,15 +1,16 @@
-import { Image, StyleSheet, Text, View, ScrollView } from 'react-native'
+import { Image, StyleSheet, Text, View, ScrollView, Modal } from 'react-native'
 import React, { Component } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedView } from '@/components/ThemedView'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
 import HeaderView from '@/components/HeaderView';
 import SquareGridEvent from '@/components/eventmain/SquareGridEvent';
+import ModalHomePageSurvey from '@/components/eventmain/quiz/ModalHomePageSurvey';
 
 export default function EventMainScreen() {
   return (
     <View>
-
+      <ModalHomePageSurvey />
       <ScrollView
           scrollEventThrottle={16}
       >        
