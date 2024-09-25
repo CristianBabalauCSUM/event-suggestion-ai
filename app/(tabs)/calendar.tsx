@@ -1,56 +1,20 @@
 import React, { useState } from "react";
 import {
-  Image,
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SliderData } from "@/data/SliderData";
-import { router } from "expo-router";
 import { ThemedText } from "@/components/ThemedText";
-import SingleEvent from "@/components/calendar/SingleEvent";
 import EventSection from "@/components/calendar/EventSection";
+import { SCHEDULE } from "@/constants/data/Schedules";
+import { getEvents, getOtherEvents } from "@/lib/utils/FilterEvents";
+import CalendarGrid from "@/components/calendar/CalendarGrid";
 
 const CalendarPage = () => {
   const [selectedDate, setSelectedDate] = useState<string>("");
-
   const daysInMonth = 30;
-  const renderCalendarDays = () => {
-    let days = [];
-    for (let i = 1; i <= daysInMonth; i++) {
-      const dayString = `2024-09-${i < 10 ? `0${i}` : i}`;
-      days.push(
-        <TouchableOpacity
-          key={i}
-          style={[
-            styles.dayBox,
-            selectedDate === dayString ? styles.selectedDay : null,
-          ]}
-          onPress={() => setSelectedDate(dayString)}
-        >
-          <ThemedText style={styles.dayText}>{i}</ThemedText>
-        </TouchableOpacity>
-      );
-    }
-    return days;
-  };
-
-  const renderSchedules = () => {
-    const events = SliderData.filter(
-      (event) => selectedDate === event.start.split("T")[0]
-    );
-
-    if (events.length === 0) {
-      return <ThemedText style={styles.noEventText}>No Events</ThemedText>;
-    } else {
-      return events.map((event, index) => (
-        <SingleEvent key={index} event={event} />
-      ));
-    }
-  };
 
   return (
     <>
@@ -62,10 +26,15 @@ const CalendarPage = () => {
       <View style={styles.safeArea}>
         <View style={styles.container}>
           <ThemedText style={styles.headerText}>&lt;   September 2024   &gt;</ThemedText>
-          <View style={styles.calendarGrid}>{renderCalendarDays()}</View>
+          <CalendarGrid
+            selectedDate={selectedDate}
+            daysInMonth={daysInMonth}
+            onSelectDate={setSelectedDate}
+          />
           <EventSection
             selectedDate={selectedDate}
-            renderSchedules={renderSchedules}
+            schedule={getEvents(selectedDate)}
+            otherSchedule={getOtherEvents(selectedDate)}
           />
         </View>
       </View>

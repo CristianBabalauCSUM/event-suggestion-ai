@@ -10,7 +10,7 @@ import {
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { useState, useEffect, memo } from "react";
-import { getAllItemsAsync } from "@/utils/AsyncStorage";
+import { getAllItemsAsync } from "@/lib/utils/AsyncStorage";
 import { router, useFocusEffect } from "expo-router";
 import React from "react";
 

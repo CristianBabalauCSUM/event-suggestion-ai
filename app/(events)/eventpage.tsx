@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, Button, Animated, TouchableOpacity } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { getDataAsyncStorage, removeDataAsyncStorage, storeDataAsyncStorage } from "@/utils/AsyncStorage";
-import { formatTitleToId } from "@/utils/textUtils";
+import { getDataAsyncStorage, removeDataAsyncStorage, storeDataAsyncStorage } from "@/lib/utils/AsyncStorage";
+import { formatTitleToId } from "@/lib/utils/textUtils";
 import { ThemedText } from "@/components/ThemedText";
 
 export default function EventPage() {

@@ -12,7 +12,7 @@ import React from "react";
 import { EventSlide } from "@/data/SliderData";
 import { ThemedText } from "../ThemedText";
 import { LinearGradient } from "expo-linear-gradient";
-import { truncateText } from "@/utils/textUtils";
+import { truncateText } from "@/lib/utils/textUtils";
 
 type Props = {
   item: EventSlide;

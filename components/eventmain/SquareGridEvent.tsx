@@ -4,7 +4,7 @@ import EventDefaultTab from "@/components/eventmain/EventDefaultTab";
 import { SliderData } from "@/data/SliderData";
 import { ThemedText } from "../ThemedText";
 import { router } from "expo-router";
-import { filterEvents } from "@/utils/FilterEvents";
+import { filterEvents } from "@/lib/utils/FilterEvents";
 
 
 const ItemSeparator = () => <View style={styles.separator} />;

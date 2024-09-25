@@ -1,42 +1,66 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { ThemedText } from '../ThemedText'
 import { Ionicons } from '@expo/vector-icons';
-import NewEventModal from './NewEventModal';
+import CreateEventModal from './CreateEventModal';
+import AiSuggestionModal from './AISuggestionModal';
+import SingleEvent from './SingleEvent';
+import { Event } from '@/constants/data/Schedules';
 
 type EventSectionProps = {
     selectedDate: string;
-    renderSchedules: () => JSX.Element | JSX.Element[];
+    schedule: Event[];
+    otherSchedule: Event[];
 }
 
-export default function EventSection({ selectedDate, renderSchedules }: EventSectionProps) {
-
-    const [openNewEventModal, setOpenNewEventModal] = React.useState(false);
+export default function EventSection({ selectedDate, schedule, otherSchedule }: EventSectionProps) {
+    const [openNewEventModal, setOpenNewEventModal] = useState(false);
+    const [openAiSuggestionModal, setOpenAiSuggestionModal] = useState(true);
 
     return (
         <View style={styles.eventsSection}>
             <ThemedText type="subtitle" style={styles.eventHeader}>
                 Events for {selectedDate || "Select a Date"}
             </ThemedText>
-            <ScrollView>{renderSchedules()}</ScrollView>
+            <ScrollView>
+                {schedule.map((event, index) => (
+                    <SingleEvent key={index} event={event} />
+                ))}
+            </ScrollView>
 
             {
                 selectedDate && (
-                    <TouchableOpacity
-                        style={styles.floatingButton}
-                        onPress={() => {
-                            setOpenNewEventModal(true);
-                        }}
-                    >
-                        <Ionicons name="add" size={28} color="white" />
-                    </TouchableOpacity>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity
+                            style={styles.floatingButton}
+                            onPress={() => {
+                                setOpenAiSuggestionModal(true);
+                            }}
+                        >
+                            <ThemedText style={styles.floatingButtonText}>AI Suggestion</ThemedText>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.floatingButton}
+                            onPress={() => {
+                                setOpenNewEventModal(true);
+                            }}
+                        >
+                            <Ionicons name="add" size={28} color="white" />
+                        </TouchableOpacity>
+                    </View>
                 )
             }
-            <NewEventModal
-                    isOpen={openNewEventModal}
-                    closeModal={() => setOpenNewEventModal(false)}
-                    date={selectedDate}
-                />
+            <AiSuggestionModal
+                isOpen={openAiSuggestionModal}
+                closeModal={() => setOpenAiSuggestionModal(false)}
+                todaySchedule={schedule}
+                otherSchedule={otherSchedule}
+            />
+            <CreateEventModal
+                isOpen={openNewEventModal}
+                closeModal={() => setOpenNewEventModal(false)}
+                date={selectedDate}
+            />
         </View>
     )
 }
@@ -44,7 +68,7 @@ export default function EventSection({ selectedDate, renderSchedules }: EventSec
 const styles = StyleSheet.create({
     eventsSection: {
         flex: 1,
-        marginTop: 20,
+        marginTop: 0,
         padding: 10,
         backgroundColor: "#fff",
         borderRadius: 10,
@@ -56,20 +80,32 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginBottom: 10,
     },
-    floatingButton: {
+    buttonContainer: {
         position: 'absolute',
-        bottom: 10,
-        right: 10,
-        backgroundColor: '#87CEEB',
-        borderRadius: 20,
-        width: 40,
-        height: 40,
+        bottom: 5,
+        right: 5,
+        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 5,
-        elevation: 5,
+        zIndex: 1
+    },
+    floatingButton: {
+        backgroundColor: '#2196F3',
+        paddingHorizontal: 10,      
+        paddingVertical: 10,         
+        borderRadius: 50,            
+        justifyContent: 'center',    
+        alignItems: 'center',        
+        marginHorizontal: 10,        
+        flexDirection: 'row',        
+        elevation: 3,               
+        shadowColor: '#000',        
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    },
+    floatingButtonText: {
+        color: '#fff',               
+        fontSize: 16,               
+        fontWeight: '600',        
     },
 })

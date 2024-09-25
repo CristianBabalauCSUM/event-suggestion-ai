@@ -2,13 +2,13 @@ import { StyleSheet, Text, View, Modal, TextInput, Button, TouchableOpacity } fr
 import React, { useState } from 'react';
 import { ThemedText } from '../ThemedText';
 
-type NewEventModalProps = {
+type CreateEventModalProps = {
   date: string;
   isOpen: boolean;
   closeModal: () => void;
 };
 
-export default function NewEventModal({ isOpen, closeModal, date }: NewEventModalProps) {
+export default function CreateEventModal({ isOpen, closeModal, date }: CreateEventModalProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
@@ -24,11 +24,10 @@ export default function NewEventModal({ isOpen, closeModal, date }: NewEventModa
       start,
       end,
       time,
-      duration: 60, // Fixed value as per your example
+      duration: 60,
     };
 
     console.log('New event created:', newEvent);
-    // Handle saving the event here (e.g., sending to server or updating state)
     closeModal();
   };
 
@@ -42,8 +41,6 @@ export default function NewEventModal({ isOpen, closeModal, date }: NewEventModa
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
           <ThemedText style={styles.modalTitle}>Create New Event</ThemedText>
-
-          {/* Event Title */}
           <TextInput
             style={styles.input}
             placeholder="Title"
@@ -51,40 +48,30 @@ export default function NewEventModal({ isOpen, closeModal, date }: NewEventModa
             onChangeText={setTitle}
 
           />
-
-          {/* Event Description */}
           <TextInput
             style={styles.input}
             placeholder="Description"
             value={description}
             onChangeText={setDescription}
           />
-
-          {/* Event Location */}
           <TextInput
             style={styles.input}
             placeholder="Location"
             value={location}
             onChangeText={setLocation}
           />
-
-          {/* Event Start */}
           <TextInput
             style={styles.input}
             placeholder="Start (e.g. 2024-09-01T07:00:00)"
             value={start}
             onChangeText={setStart}
           />
-
-          {/* Event End */}
           <TextInput
             style={styles.input}
             placeholder="End (e.g. 2024-09-01T08:00:00)"
             value={end}
             onChangeText={setEnd}
           />
-
-          {/* Event Time */}
           <TextInput
             style={styles.input}
             placeholder="Time (e.g. 7:00 AM - 8:00 AM)"
