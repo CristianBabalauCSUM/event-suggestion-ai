@@ -2,31 +2,27 @@ import {
   StyleSheet,
   Image,
   View,
-  Text,
   FlatList,
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { useState, useEffect, memo } from "react";
+import { useState, memo } from "react";
 import { getAllItemsAsync } from "@/lib/utils/AsyncStorage";
 import { router, useFocusEffect } from "expo-router";
 import React from "react";
+import { EventData } from "@/lib/definitions";
 
-// Memoized EventItem component
-const EventItem = memo(({ item }: any) => {
-  const newItem = JSON.parse(item.value);
-  if (!item || !item.value) return null;
-  const { title, image, end, time, location } = newItem;
-
+const EventItem = memo(({ item }: {item : EventData}) => {
+  if (!item) return null;
+  const { title, image, end, time, location, date } = item;
   return (
     <TouchableOpacity
       style={styles.eventContainer}
       onPress={() => {
         router.push({
           pathname: `/(events)/eventpage`,
-          params: { item: JSON.stringify(newItem) },
+          params: { item: JSON.stringify(item) },
         });
       }}
     >
@@ -34,7 +30,7 @@ const EventItem = memo(({ item }: any) => {
       <View style={styles.eventDetails}>
         <ThemedText type="subtitle" style={styles.eventTitle}>{title}</ThemedText>
         <ThemedText style={styles.eventTimeDate}>
-          {time} | {end.split("T")[0]}
+          {time} | {date}
         </ThemedText>
         <ThemedText style={styles.eventLocation}>{location}</ThemedText>
       </View>
@@ -42,32 +38,14 @@ const EventItem = memo(({ item }: any) => {
   );
 });
 
-export default function TabTwoScreen() {
-  const [allItems, setAllItems] = useState<any>([]);
+export default function Events() {
+  const [allItems, setAllItems] = useState<EventData[]>([]);
 
   useFocusEffect(
     React.useCallback(() => {
       async function fetchData() {
         const items = await getAllItemsAsync();
-        if (items) {
-          const parsedItems = items.map(([key, value]) => {
-            if (value) {
-              try {
-                return { key, value: JSON.parse(value) };
-              } catch (error) {
-                console.error("Error parsing JSON:", error);
-                return { key, value: {} };
-              }
-            } else {
-              console.warn("Value is undefined or null for key:", key);
-              return { key, value: {} };
-            }
-          });
-          setAllItems(parsedItems);
-        } else {
-          console.warn("No items found");
-          setAllItems([]);
-        }
+        setAllItems(items);
       }
       fetchData();
     }, [])

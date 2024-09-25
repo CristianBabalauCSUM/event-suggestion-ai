@@ -1,20 +1,6 @@
-import { ImageSourcePropType } from "react-native";
+import { EventData } from "@/lib/definitions";
 
-
-export type EventSlide = { 
-    title: string;
-    image: ImageSourcePropType;
-    start: string;
-    end: string;
-    location: string;
-    duration: number;
-    time: string;
-    date: string;
-    type: string[];
-    description: string;
-}
-
-export const SliderData = [
+export const SliderData: EventData[] = [
     {
         title: 'Team Stand-up Meeting',
         description: 'Daily sync-up with the project team',
@@ -25,6 +11,7 @@ export const SliderData = [
         time: '9:00 AM - 9:30 AM',
         type: ['Meeting', 'Team', 'Stand-up', 'Comedy'],
         image: require('@/assets/images/partial-react-logo.png'),
+        date: '2024-09-04',
     },
     {
         title: 'Tennis in the Park',
@@ -36,6 +23,7 @@ export const SliderData = [
         time: '9:00 AM - 9:30 AM',
         type: ['Sports', 'Tennis', 'Park', 'Active', 'Fun', 'Healthy', 'Exercise'],
         image: require('@/assets/images/react-logo.png'),
+        date: '2024-09-02',
     },
     {
         title: 'Park walking with pets',
@@ -47,6 +35,7 @@ export const SliderData = [
         time: '9:00 AM - 9:30 AM',
         type: ['Social','Pets', 'Walking', 'Park', 'Active', 'Fun', 'Healthy', 'Exercise'],
         image: require('@/assets/images/splash.png'),
+        date: '2024-09-03',
     },
     {
         title: 'Picnic by the Lake',
@@ -58,6 +47,7 @@ export const SliderData = [
         time: '9:00 AM - 9:30 AM',
         type: ['Social', 'Picnic', 'Lake', 'Active', 'Fun', 'Healthy', 'Exercise'],
         image: require('@/assets/images/icon.png'),
+        date: '2024-09-04',
     },
     {
         title: 'Hiking in the Mountains',
@@ -69,6 +59,7 @@ export const SliderData = [
         time: '9:00 AM - 9:30 AM',
         type: ['Social', 'Hiking', 'Mountains', 'Active', 'Fun', 'Healthy', 'Exercise'],
         image: require('@/assets/images/icon.png'),
+        date: '2024-09-14',
     },
     {
         title: 'Ping Pong Tournament',
@@ -80,6 +71,7 @@ export const SliderData = [
         time: '9:00 AM - 9:30 AM',
         type: ['Social', 'Ping Pong', 'Tournament', 'Active', 'Fun', 'Healthy', 'Exercise'],
         image: require('@/assets/images/icon.png'),
+        date: '2024-09-14',
     },
     {
         title: 'Foot Ball Tournament',
@@ -91,6 +83,7 @@ export const SliderData = [
         time: '9:00 AM - 9:30 AM',
         type: ['Social', 'Foot Ball', 'Tournament', 'Active', 'Fun', 'Healthy', 'Exercise'],
         image: require('@/assets/images/icon.png'),
+        date: '2024-09-14',
     },
 
     {
@@ -103,6 +96,7 @@ export const SliderData = [
         time: '9:00 AM - 9:30 AM',
         type: ['Social', 'Meditaion', 'Active', 'Fun', 'Healthy', 'Exercise', 'Mental', 'Peace'],
         image: require('@/assets/images/icon.png'),
+        date: '2024-09-14',
     },
 
-] as EventSlide[];
+];

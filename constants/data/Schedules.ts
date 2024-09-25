@@ -1,19 +1,6 @@
-import { ImageSourcePropType } from "react-native";
+import { EventData } from "@/lib/definitions";
 
-export interface Event {
-    title: string;
-    description: string;
-    location: string;
-    start: string;
-    end: string;
-    duration: number;
-    time: string;
-    image: ImageSourcePropType;
-    type: string[];
-    date: string;
-}
-
-export const SCHEDULE: Event[] = [
+export const SCHEDULE: EventData[] = [
     {
         title: 'Morning Yoga',
         description: 'A relaxing morning yoga session',

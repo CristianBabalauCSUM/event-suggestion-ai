@@ -2,10 +2,10 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import React from 'react'
 import { ThemedText } from '../ThemedText';
 import { router } from 'expo-router';
-import { Event } from '@/constants/data/Schedules';
+import { EventData } from '@/lib/definitions';
 
 type SingleEventProps = {
-    event: Event;
+    event: EventData;
 }
 
 export default function SingleEvent({ event }: SingleEventProps) {

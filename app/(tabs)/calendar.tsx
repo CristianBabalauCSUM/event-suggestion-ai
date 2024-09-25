@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { SliderData } from "@/data/SliderData";
+import { SliderData } from "@/constants/data/SliderData";
 import { ThemedText } from "@/components/ThemedText";
 import EventSection from "@/components/calendar/EventSection";
 import { SCHEDULE } from "@/constants/data/Schedules";

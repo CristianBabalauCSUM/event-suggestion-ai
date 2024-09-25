@@ -1,16 +1,16 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { ThemedText } from '../ThemedText'
 import { Ionicons } from '@expo/vector-icons';
 import CreateEventModal from './CreateEventModal';
 import AiSuggestionModal from './AISuggestionModal';
 import SingleEvent from './SingleEvent';
-import { Event } from '@/constants/data/Schedules';
+import { EventData } from '@/lib/definitions';
 
 type EventSectionProps = {
     selectedDate: string;
-    schedule: Event[];
-    otherSchedule: Event[];
+    schedule: EventData[];
+    otherSchedule: EventData[];
 }
 
 export default function EventSection({ selectedDate, schedule, otherSchedule }: EventSectionProps) {
@@ -51,6 +51,7 @@ export default function EventSection({ selectedDate, schedule, otherSchedule }: 
                 )
             }
             <AiSuggestionModal
+                date={selectedDate}
                 isOpen={openAiSuggestionModal}
                 closeModal={() => setOpenAiSuggestionModal(false)}
                 todaySchedule={schedule}

@@ -1,27 +1,25 @@
 import {
   View,
-  Text,
   StyleSheet,
-  Image,
   ImageBackground,
   ViewStyle,
   TextStyle,
   TouchableOpacity,
 } from "react-native";
 import React from "react";
-import { EventSlide } from "@/data/SliderData";
 import { ThemedText } from "../ThemedText";
 import { LinearGradient } from "expo-linear-gradient";
 import { truncateText } from "@/lib/utils/textUtils";
+import { EventData } from "@/lib/definitions";
 
 type Props = {
-  item: EventSlide;
+  item: EventData;
   index: number;
-  onPress: () => void; // Add the onPress prop here
+  onPress: () => void;
 };
 type Styling = {
-  containerStyle?: ViewStyle; // Style for the container
-  textStyle?: TextStyle; // Style for the text};
+  containerStyle?: ViewStyle;
+  textStyle?: TextStyle;
 };
 
 export default function EventDefaultTab({

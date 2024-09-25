@@ -4,11 +4,12 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { getDataAsyncStorage, removeDataAsyncStorage, storeDataAsyncStorage } from "@/lib/utils/AsyncStorage";
 import { formatTitleToId } from "@/lib/utils/textUtils";
 import { ThemedText } from "@/components/ThemedText";
+import { EventData } from "@/lib/definitions";
 
 export default function EventPage() {
   const { item } : { item : string } = useLocalSearchParams();
 
-  const parsedItem = JSON.parse(item);
+  const parsedItem = JSON.parse(item) as EventData;
   const eventTitle = formatTitleToId(parsedItem.title);
 
 
@@ -26,7 +27,6 @@ export default function EventPage() {
       try {
         const isSubscribed = await getDataAsyncStorage(eventTitle);
         if (isSubscribed ) {
-
           setSubscriptionStatus({
             isSubscribed: true,
             buttonText: 'Unsubscribe',
@@ -63,7 +63,8 @@ export default function EventPage() {
       });
 
     } else {
-      storeDataAsyncStorage(eventTitle, item);
+      console.log('Subscribed to event:', parsedItem);
+      storeDataAsyncStorage(eventTitle, parsedItem);
       
       setSubscriptionStatus({
         isSubscribed: true,

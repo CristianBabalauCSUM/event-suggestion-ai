@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import React from "react";
 import EventDefaultTab from "@/components/eventmain/EventDefaultTab";
-import { SliderData } from "@/data/SliderData";
+import { SliderData } from "@/constants/data/SliderData";
 import { ThemedText } from "../ThemedText";
 import { router } from "expo-router";
 import { filterEvents } from "@/lib/utils/FilterEvents";

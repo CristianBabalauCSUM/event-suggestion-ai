@@ -11,15 +11,12 @@ export default function EventMainScreen() {
     <View>
 
       <ScrollView
-          scrollEventThrottle={16}
-      >        
-          <HeaderView headerBackgroundColor={'#A1CEDC'} /> 
-
-          <SquareGridEvent headerText='Find new connections' subHeaderText='Check these activities' type = 'any' sliced={4}/>
-          
-          <SquareGridEvent headerText='Let`s do some sports' subHeaderText='Active Lifestyle!' type = 'Exercise' sliced={4}/>
-
-          <SquareGridEvent headerText='Resturants and Bars' subHeaderText='Food and Drinks' type = 'any' sliced={4}/>
+        scrollEventThrottle={16}
+      >
+        <HeaderView headerBackgroundColor={'#A1CEDC'} />
+        <SquareGridEvent headerText='Find new connections' subHeaderText='Check these activities' type='any' sliced={4} />
+        <SquareGridEvent headerText='Let`s do some sports' subHeaderText='Active Lifestyle!' type='Exercise' sliced={4} />
+        <SquareGridEvent headerText='Resturants and Bars' subHeaderText='Food and Drinks' type='any' sliced={4} />
 
       </ScrollView>
     </View>
@@ -27,10 +24,10 @@ export default function EventMainScreen() {
 }
 
 const styles = StyleSheet.create({
-    headerContainer : {
-        backgroundColor: '#A1CEDC',
-        height: 200,
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
+  headerContainer: {
+    backgroundColor: '#A1CEDC',
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 })

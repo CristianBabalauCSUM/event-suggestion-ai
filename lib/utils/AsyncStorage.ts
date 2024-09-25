@@ -1,25 +1,27 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EventData } from '../definitions';
 
-export const storeDataAsyncStorage = async (key : any, value : any) => {
+export const storeDataAsyncStorage = async (key: string, value: EventData) => {
   try {
-    await AsyncStorage.setItem(key, JSON.stringify(value));  // Convert to string if necessary
+    await AsyncStorage.setItem(key, JSON.stringify(value)); 
   } catch (error) {
     console.error('Error storing data', error);
   }
 };
 
-export const getDataAsyncStorage = async (key : any) => {
+export const getDataAsyncStorage = async (key: string) : Promise<EventData | null> => {
   try {
     const value = await AsyncStorage.getItem(key);
     if (value !== null) {
-      return JSON.parse(value);  // Parse JSON data
+      return JSON.parse(value) as EventData;
     }
   } catch (error) {
     console.error('Error retrieving data', error);
   }
+  return null;
 }
 
-export const removeDataAsyncStorage = async (key : any) => {
+export const removeDataAsyncStorage = async (key: string) => {
   try {
     await AsyncStorage.removeItem(key);
   } catch (error) {
@@ -27,14 +29,29 @@ export const removeDataAsyncStorage = async (key : any) => {
   }
 }
 
-export const getAllItemsAsync = async () => {
+export const getAllItemsAsync = async (): Promise<EventData[]> => {
   try {
     const keys = await AsyncStorage.getAllKeys();
     const items = await AsyncStorage.multiGet(keys);
-    return items; // Return the array of key-value pairs
+    
+    // Parse and return only valid EventData items
+    const parsedItems: EventData[] = items.reduce((acc: EventData[], [key, value]) => {
+      if (value) {
+        try {
+          const parsedValue = JSON.parse(value) as EventData;
+          acc.push(parsedValue); // Add valid parsed EventData to the array
+        } catch (error) {
+          console.error("Error parsing JSON for key:", key, error);
+        }
+      } else {
+        console.warn("Value is undefined or null for key:", key);
+      }
+      return acc;
+    }, []);
+    
+    return parsedItems;
   } catch (error) {
     console.error('Error getting all items:', error);
-    return []; // Return an empty array in case of error
+    return [];
   }
-
-  };
+};

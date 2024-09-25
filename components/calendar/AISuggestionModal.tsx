@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { EventSlide } from '@/data/SliderData';
 import SuggestedEvent from './SuggestedEvent';
 import { ThemedText } from '../ThemedText';
-import { Event } from '@/constants/data/Schedules';
+import { EventData } from '@/lib/definitions';
 
 type AiSuggestionModalProps = {
+    date: string;
     isOpen: boolean;
     closeModal: () => void;
-    todaySchedule: Event[];
-    otherSchedule: Event[];
+    todaySchedule: EventData[];
+    otherSchedule: EventData[];
 };
 
 const { width, height } = Dimensions.get('window');
 
-export default function AiSuggestionModal({ isOpen, closeModal, todaySchedule, otherSchedule }: AiSuggestionModalProps) {
+export default function AiSuggestionModal({ date, isOpen, closeModal, todaySchedule, otherSchedule }: AiSuggestionModalProps) {
 
-    const [aiSuggestions, setAiSuggestions] = useState<EventSlide[]>([]);
+    const [aiSuggestions, setAiSuggestions] = useState<EventData[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const cleanScheduleData = (schedule: Event[]) => {
+        const cleanScheduleData = (schedule: EventData[]) => {
             return schedule.map(({ image, ...rest }) => rest);
         };
 
@@ -66,7 +66,7 @@ export default function AiSuggestionModal({ isOpen, closeModal, todaySchedule, o
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContainer}>
-                        <ThemedText style={styles.modalTitle}>AI Suggestions</ThemedText>
+                        <ThemedText style={styles.modalTitle}>AI Suggestions | {date}</ThemedText>
 
                         <ScrollView style={styles.suggestionsList} contentContainerStyle={styles.scrollContent}>
                             {isLoading ? (
