@@ -1,5 +1,3 @@
-import { SCHEDULE } from "@/constants/data/Schedules";
-import { SliderData } from "@/constants/data/SliderData";
 import { EventData } from "@/lib/definitions";
 
 export function filterEvents(data: EventData[], filter: string | string[]) {
@@ -17,10 +15,10 @@ export function filterEvents(data: EventData[], filter: string | string[]) {
   }
 }
 
-export const getEvents = (selectedDate: string) : EventData[] => {
-  return SCHEDULE.filter((event) => selectedDate === event.date);
+export const getEvents = (calendarSchedule: EventData[], selectedDate: string) : EventData[] => {
+  return calendarSchedule.filter((event) => selectedDate === event.date);
 };
 
-export const getOtherEvents = (selectedDate: string) : EventData[] => {
-  return SliderData.filter((event) => selectedDate !== event.date);
+export const getOtherEvents = (calendarSchedule: EventData[], selectedDate: string) : EventData[] => {
+  return calendarSchedule.filter((event) => selectedDate !== event.date);
 };

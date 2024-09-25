@@ -14,7 +14,7 @@ export default function EventPage() {
 
 
   const [showPopup, setShowPopup] = useState(false);
-  const [fadeAnim] = useState(new Animated.Value(0)); // Initial opacity of 0
+  const [fadeAnim] = useState(new Animated.Value(0)); 
   const [subscriptionStatus, setSubscriptionStatus] = useState({
     isSubscribed: false,
     buttonText: 'Subscribe',
@@ -40,7 +40,7 @@ export default function EventPage() {
     };
 
     checkSubscriptionStatus();
-  }, []); // Empty dependency array means this effect runs once when the component mounts
+  }, []); 
 
 
   if (!parsedItem) {
@@ -63,7 +63,6 @@ export default function EventPage() {
       });
 
     } else {
-      console.log('Subscribed to event:', parsedItem);
       storeDataAsyncStorage(eventTitle, parsedItem);
       
       setSubscriptionStatus({
@@ -104,7 +103,6 @@ export default function EventPage() {
         <ThemedText style={styles.time}>{parsedItem.time}</ThemedText>
         <ThemedText style={styles.location}>Location: {parsedItem.location}</ThemedText>
 
-        {/* Subscribe Button */}
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={{ backgroundColor: "#F7B538", padding: 10, borderRadius: 5, alignItems: "center" }}
@@ -117,7 +115,6 @@ export default function EventPage() {
         </View>
       </View>
 
-      {/* Animated Popup */}
       {showPopup && (
         <Animated.View style={[styles.popup, { opacity: fadeAnim }]}>
           <Text style={styles.popupText}>{subscriptionStatus.subscribeText}</Text>
@@ -170,7 +167,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 50,
   },
-  // Popup styles
   popup: {
     position: "absolute",
     bottom: 100,
@@ -181,11 +177,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    elevation: 5, // Adds a shadow (Android)
-    shadowColor: "#000", // Shadow color (iOS)
-    shadowOffset: { width: 0, height: 2 }, // Shadow position (iOS)
-    shadowOpacity: 0.3, // Shadow opacity (iOS)
-    shadowRadius: 3, // Shadow blur radius (iOS)
+    elevation: 5, 
+    shadowColor: "#000", 
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
   },
   popupText: {
     color: "#fff",

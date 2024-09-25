@@ -41,8 +41,9 @@ export default function AiSuggestionModal({ date, isOpen, closeModal, todaySched
                 const data = await response.json();
                 console.log("Suggestions fetched:", data);
                 const suggestions = JSON.parse(data.suggestions);
-                suggestions.map((suggestion) => {
-                    suggestion.image = require('@/assets/images/icon.png'); // Fallback image
+                suggestions.map((suggestion: any) => {
+                    suggestion.image = require('@/assets/images/icon.png');
+                    suggestion.date = date;
                     return suggestion;
                 });
                 setAiSuggestions(suggestions);

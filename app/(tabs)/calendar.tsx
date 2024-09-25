@@ -1,20 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { SliderData } from "@/constants/data/SliderData";
 import { ThemedText } from "@/components/ThemedText";
 import EventSection from "@/components/calendar/EventSection";
-import { SCHEDULE } from "@/constants/data/Schedules";
 import { getEvents, getOtherEvents } from "@/lib/utils/FilterEvents";
 import CalendarGrid from "@/components/calendar/CalendarGrid";
+import { getAllItemsAsync } from "@/lib/utils/AsyncStorage";
+import { EventData } from "@/lib/definitions";
+import { SCHEDULE } from "@/constants/data/Schedules";
+import { useIsFocused } from "@react-navigation/native";
 
 const CalendarPage = () => {
   const [selectedDate, setSelectedDate] = useState<string>("");
   const daysInMonth = 30;
+  const [calendarSchedule, setCalendarSchedule] = useState<EventData[]>([]);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    const fetchCalendarSchedule = async () => {
+      const schedule = await getAllItemsAsync();
+      setCalendarSchedule([...schedule, ...SCHEDULE]);
+    };
+    fetchCalendarSchedule();
+  }, [isFocused]);
 
   return (
     <>
@@ -33,8 +44,8 @@ const CalendarPage = () => {
           />
           <EventSection
             selectedDate={selectedDate}
-            schedule={getEvents(selectedDate)}
-            otherSchedule={getOtherEvents(selectedDate)}
+            schedule={getEvents(calendarSchedule, selectedDate)}
+            otherSchedule={getOtherEvents(calendarSchedule, selectedDate)}
           />
         </View>
       </View>

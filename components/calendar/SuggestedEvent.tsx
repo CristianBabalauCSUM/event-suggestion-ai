@@ -2,15 +2,18 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import React, { useState } from 'react';
 import { ThemedText } from '../ThemedText';
 import { router } from 'expo-router';
+import { EventData } from '@/lib/definitions';
+import { storeDataAsyncStorage } from '@/lib/utils/AsyncStorage';
 
 type SingleEventProps = {
-    event: any;
+    event: EventData;
 };
 
 export default function SuggestedEvent({ event }: SingleEventProps) {
     const [response, setResponse] = useState<string | null>(null);
 
     const handleAccept = () => {
+        storeDataAsyncStorage(event.title, event);
         setResponse('accepted');
     };
 
@@ -25,7 +28,7 @@ export default function SuggestedEvent({ event }: SingleEventProps) {
                 onPress={() => {
                     router.push({
                         pathname: `/(events)/eventpage`,
-                        params: { item: JSON.stringify(event) }, // Serialize the item
+                        params: { item: JSON.stringify(event) },
                     });
                 }}
             >
@@ -39,7 +42,6 @@ export default function SuggestedEvent({ event }: SingleEventProps) {
                 </View>
             </TouchableOpacity>
 
-            {/* Show buttons if the user hasn't responded yet */}
             {response === null ? (
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.acceptButton} onPress={handleAccept}>
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         backgroundColor: "#f0f8ff",
         borderRadius: 5,
-        flexDirection: "column", // Stack content vertically
+        flexDirection: "column",
         alignItems: "flex-start",
         justifyContent: "space-between",
     },

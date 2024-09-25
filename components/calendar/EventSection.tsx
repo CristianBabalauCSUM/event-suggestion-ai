@@ -15,7 +15,7 @@ type EventSectionProps = {
 
 export default function EventSection({ selectedDate, schedule, otherSchedule }: EventSectionProps) {
     const [openNewEventModal, setOpenNewEventModal] = useState(false);
-    const [openAiSuggestionModal, setOpenAiSuggestionModal] = useState(true);
+    const [openAiSuggestionModal, setOpenAiSuggestionModal] = useState(false);
 
     return (
         <View style={styles.eventsSection}>
