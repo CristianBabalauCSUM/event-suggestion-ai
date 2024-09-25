@@ -13,6 +13,8 @@ Please suggest new activities or events for the user today, scheduled between 08
 - The new events should not conflict with any existing events in today's schedule.
 - The events should relate to the user's interests inferred from the provided schedules.
 - The events should be appropriate for the time of day.
+- The events should be diverse and engaging.
+- Inbetween the events, the user should have some time to relax and unwind.
 
 Output Format:
 
