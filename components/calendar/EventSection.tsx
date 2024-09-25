@@ -1,11 +1,12 @@
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { ThemedText } from '../ThemedText'
 import { Ionicons } from '@expo/vector-icons';
 import CreateEventModal from './CreateEventModal';
 import AiSuggestionModal from './AISuggestionModal';
 import SingleEvent from './SingleEvent';
 import { EventData } from '@/lib/definitions';
+import { useFocusEffect, useNavigationState } from '@react-navigation/native';
 
 type EventSectionProps = {
     selectedDate: string;
@@ -24,7 +25,7 @@ export default function EventSection({ selectedDate, schedule, otherSchedule }: 
             </ThemedText>
             <ScrollView>
                 {schedule.map((event, index) => (
-                    <SingleEvent key={index} event={event} />
+                    <SingleEvent key={index} event={event} showSubscriptionButton={false} />
                 ))}
             </ScrollView>
 

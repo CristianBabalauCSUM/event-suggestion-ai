@@ -22,7 +22,7 @@ const EventItem = memo(({ item }: {item : EventData}) => {
       onPress={() => {
         router.push({
           pathname: `/(events)/eventpage`,
-          params: { item: JSON.stringify(item) },
+          params: { item: JSON.stringify(item), showButton: true.toString() },
         });
       }}
     >

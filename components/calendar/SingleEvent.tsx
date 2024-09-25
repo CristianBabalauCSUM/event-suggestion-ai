@@ -6,9 +6,10 @@ import { EventData } from '@/lib/definitions';
 
 type SingleEventProps = {
     event: EventData;
+    showSubscriptionButton: boolean;
 }
 
-export default function SingleEvent({ event }: SingleEventProps) {
+export default function SingleEvent({ event, showSubscriptionButton }: SingleEventProps) {
     return (
         <View style={styles.eventBox}>
             <TouchableOpacity
@@ -16,7 +17,7 @@ export default function SingleEvent({ event }: SingleEventProps) {
                 onPress={() => {
                     router.push({
                         pathname: `/(events)/eventpage`,
-                        params: { item: JSON.stringify(event) } // Serialize the item
+                        params: { item: JSON.stringify(event), showButton: showSubscriptionButton.toString() } 
                     });
                 }}
             >

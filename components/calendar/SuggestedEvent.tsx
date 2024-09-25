@@ -4,16 +4,19 @@ import { ThemedText } from '../ThemedText';
 import { router } from 'expo-router';
 import { EventData } from '@/lib/definitions';
 import { storeDataAsyncStorage } from '@/lib/utils/AsyncStorage';
+import { formatTitleToId } from '@/lib/utils/textUtils';
 
 type SingleEventProps = {
     event: EventData;
+    closeModal: () => void; 
 };
 
-export default function SuggestedEvent({ event }: SingleEventProps) {
+export default function SuggestedEvent({ event, closeModal }: SingleEventProps) {
     const [response, setResponse] = useState<string | null>(null);
 
     const handleAccept = () => {
-        storeDataAsyncStorage(event.title, event);
+        const eventTitle = formatTitleToId(event.title);
+        storeDataAsyncStorage(eventTitle, event);
         setResponse('accepted');
     };
 
@@ -21,16 +24,19 @@ export default function SuggestedEvent({ event }: SingleEventProps) {
         setResponse('rejected');
     };
 
+    const handleEventPress = () => {
+        closeModal(); 
+        router.push({
+            pathname: `/(events)/eventpage`,
+            params: { item: JSON.stringify(event), showButton: false.toString() },
+        });
+    };
+
     return (
         <View style={styles.eventBox}>
             <TouchableOpacity
                 style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}
-                onPress={() => {
-                    router.push({
-                        pathname: `/(events)/eventpage`,
-                        params: { item: JSON.stringify(event) },
-                    });
-                }}
+                onPress={handleEventPress}  // Call handleEventPress to handle navigation and close the modal
             >
                 <View>
                     <ThemedText style={styles.eventTitle}>{event.title}</ThemedText>

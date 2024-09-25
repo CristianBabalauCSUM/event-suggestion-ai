@@ -74,7 +74,7 @@ export default function AiSuggestionModal({ date, isOpen, closeModal, todaySched
                                 <ThemedText style={styles.noSuggestionsText}>Loading...</ThemedText>
                             ) : aiSuggestions.length ? (
                                 aiSuggestions.map((event, index) => (
-                                    <SuggestedEvent key={index} event={event} />
+                                    <SuggestedEvent key={index} event={event} closeModal={closeModal} />
                                 ))
                             ) : (
                                 <ThemedText style={styles.noSuggestionsText}>No suggestions available</ThemedText>

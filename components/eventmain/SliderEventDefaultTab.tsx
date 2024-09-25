@@ -17,7 +17,7 @@ export default function SliderEventDefaultTab() {
             onPress={() => {
               router.push({
                 pathname: `/(events)/eventpage`,
-                params: { item: JSON.stringify(item) } // Serialize the item
+                params: { item: JSON.stringify(item), showButton: true.toString() } // Serialize the item
               });
             }}
           />

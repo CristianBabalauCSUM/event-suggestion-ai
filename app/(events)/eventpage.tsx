@@ -7,14 +7,16 @@ import { ThemedText } from "@/components/ThemedText";
 import { EventData } from "@/lib/definitions";
 
 export default function EventPage() {
-  const { item } : { item : string } = useLocalSearchParams();
+  const searchParams = useLocalSearchParams();
+  const item = searchParams.item as string;
+  const showButton = (searchParams.showButton as string) === 'true';
 
   const parsedItem = JSON.parse(item) as EventData;
   const eventTitle = formatTitleToId(parsedItem.title);
 
 
   const [showPopup, setShowPopup] = useState(false);
-  const [fadeAnim] = useState(new Animated.Value(0)); 
+  const [fadeAnim] = useState(new Animated.Value(0));
   const [subscriptionStatus, setSubscriptionStatus] = useState({
     isSubscribed: false,
     buttonText: 'Subscribe',
@@ -26,7 +28,7 @@ export default function EventPage() {
     const checkSubscriptionStatus = async () => {
       try {
         const isSubscribed = await getDataAsyncStorage(eventTitle);
-        if (isSubscribed ) {
+        if (isSubscribed) {
           setSubscriptionStatus({
             isSubscribed: true,
             buttonText: 'Unsubscribe',
@@ -40,7 +42,7 @@ export default function EventPage() {
     };
 
     checkSubscriptionStatus();
-  }, []); 
+  }, []);
 
 
   if (!parsedItem) {
@@ -64,14 +66,14 @@ export default function EventPage() {
 
     } else {
       storeDataAsyncStorage(eventTitle, parsedItem);
-      
+
       setSubscriptionStatus({
         isSubscribed: true,
         buttonText: "Unsubscribe",
         subscribeText: 'Successfully Subscribed!',
       });
 
-    }; 
+    };
 
     Animated.timing(fadeAnim, {
       toValue: 1,
@@ -80,11 +82,11 @@ export default function EventPage() {
     }).start();
 
     setTimeout(() => {
-        Animated.timing(fadeAnim, {
-          toValue: 0,
-          duration: 500,
-          useNativeDriver: true,
-        }).start(() => setShowPopup(false)); 
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start(() => setShowPopup(false));
     }, 3000);
   };
   return (
@@ -92,7 +94,7 @@ export default function EventPage() {
       <Stack.Screen
         options={{
           title: parsedItem.title,
-          headerBackTitle: "Back", 
+          headerBackTitle: "Back",
         }}
       />
 
@@ -103,16 +105,21 @@ export default function EventPage() {
         <ThemedText style={styles.time}>{parsedItem.time}</ThemedText>
         <ThemedText style={styles.location}>Location: {parsedItem.location}</ThemedText>
 
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={{ backgroundColor: "#F7B538", padding: 10, borderRadius: 5, alignItems: "center" }}
-            onPress={() => {
-              handleSubscribe();
-            }}
-          >
-            <ThemedText>{subscriptionStatus.buttonText}</ThemedText>
-          </TouchableOpacity>
-        </View>
+        {
+          showButton && (
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={{ backgroundColor: "#F7B538", padding: 10, borderRadius: 5, alignItems: "center" }}
+                onPress={() => {
+                  handleSubscribe();
+                }}
+              >
+                <ThemedText>{subscriptionStatus.buttonText}</ThemedText>
+              </TouchableOpacity>
+            </View>
+          )
+        }
+
       </View>
 
       {showPopup && (
@@ -177,8 +184,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    elevation: 5, 
-    shadowColor: "#000", 
+    elevation: 5,
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 3,
