@@ -73,6 +73,7 @@ export const SliderData: EventData[] = [
         image: require('@/assets/images/icon.png'),
         date: '2024-09-14',
     },
+    
     {
         title: 'Foot Ball Tournament',
         description: 'Daily sync-up with the project team ',
