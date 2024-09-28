@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import React from "react";
 import EventDefaultTab from "@/components/eventmain/EventDefaultTab";
 import { SliderData } from "@/constants/data/SliderData";

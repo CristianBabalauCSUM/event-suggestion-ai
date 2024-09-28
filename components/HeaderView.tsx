@@ -1,17 +1,7 @@
-import type { PropsWithChildren, ReactElement } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Animated, {
-  interpolate,
-  useAnimatedRef,
-  useAnimatedStyle,
-  useScrollViewOffset,
-} from 'react-native-reanimated';
-import { ThemedText } from './ThemedText';
+import type { PropsWithChildren } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Header } from 'react-native/Libraries/NewAppScreen';
 import HeaderWelcome from '@/components/eventmain/HeaderWelcome';
-import EventDefaultTab from '@/components/eventmain/EventDefaultTab';
 import SliderEventDefaultTab from './eventmain/SliderEventDefaultTab';
 
 

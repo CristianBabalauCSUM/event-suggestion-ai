@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
+import { Modal, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SuggestedEvent from './SuggestedEvent';
 import { ThemedText } from '../ThemedText';
@@ -55,7 +55,7 @@ export default function AiSuggestionModal({ date, isOpen, closeModal, todaySched
         };
 
         if (aiSuggestions.length === 0 && isOpen) getSuggestion();
-    }, [isOpen]);
+    }, [aiSuggestions.length, date, isOpen, otherSchedule, todaySchedule]);
 
     return (
         <SafeAreaView style={styles.container}>

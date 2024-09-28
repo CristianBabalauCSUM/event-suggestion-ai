@@ -1,7 +1,6 @@
-import { View, Text, StyleSheet} from 'react-native'
+import { View, StyleSheet} from 'react-native'
 import React from 'react'
 import { ThemedText } from '../ThemedText'
-import { useThemeColor } from '@/hooks/useThemeColor';
 
 type Props = {
     username: string

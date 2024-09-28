@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, Image } from 'react-native'
 import React from 'react'
 import { ThemedText } from '../ThemedText';
 import { router } from 'expo-router';

@@ -1,15 +1,21 @@
-import { Image, StyleSheet, Text, View, ScrollView, Modal } from 'react-native'
-import React, { Component } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ThemedView } from '@/components/ThemedView'
-import ParallaxScrollView from '@/components/ParallaxScrollView'
+import { View, ScrollView } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import HeaderView from '@/components/HeaderView';
 import SquareGridEvent from '@/components/eventmain/SquareGridEvent';
 import ModalHomePageSurvey from '@/components/eventmain/quiz/ModalHomePageSurvey';
+import { UserModal } from '@/components/users/UserModal';
 
 export default function EventMainScreen() {
+
+  const [showUserModal, setShowUserModal] = useState(false);
+
+  useEffect(() => {
+    setShowUserModal(true);
+  }, [])
+
   return (
     <View>
+      <UserModal visible={showUserModal} onClose={() => setShowUserModal(!showUserModal)} />
       <ModalHomePageSurvey />
       <ScrollView
         scrollEventThrottle={16}
@@ -23,12 +29,3 @@ export default function EventMainScreen() {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  headerContainer: {
-    backgroundColor: '#A1CEDC',
-    height: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-})

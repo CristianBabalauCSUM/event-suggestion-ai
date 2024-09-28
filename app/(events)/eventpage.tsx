@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet, Button, Animated, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, Animated, TouchableOpacity } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { getDataAsyncStorage, removeDataAsyncStorage, storeDataAsyncStorage } from "@/lib/utils/AsyncStorage";
 import { formatTitleToId } from "@/lib/utils/textUtils";
@@ -42,7 +42,7 @@ export default function EventPage() {
     };
 
     checkSubscriptionStatus();
-  }, []);
+  }, [eventTitle]);
 
 
   if (!parsedItem) {

@@ -8,7 +8,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  Dimensions,
   FlatList as FlatListType,
 } from "react-native";
 

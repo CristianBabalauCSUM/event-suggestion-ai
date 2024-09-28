@@ -15,7 +15,7 @@ import { EventData } from "@/lib/definitions";
 
 const EventItem = memo(({ item }: {item : EventData}) => {
   if (!item) return null;
-  const { title, image, end, time, location, date } = item;
+  const { title, image, time, location, date } = item;
   return (
     <TouchableOpacity
       style={styles.eventContainer}
@@ -37,6 +37,8 @@ const EventItem = memo(({ item }: {item : EventData}) => {
     </TouchableOpacity>
   );
 });
+
+EventItem.displayName = "EventItem";
 
 export default function Events() {
   const [allItems, setAllItems] = useState<EventData[]>([]);
