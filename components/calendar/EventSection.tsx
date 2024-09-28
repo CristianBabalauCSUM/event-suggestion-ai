@@ -1,12 +1,12 @@
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { ThemedText } from '../ThemedText'
 import { Ionicons } from '@expo/vector-icons';
 import CreateEventModal from './CreateEventModal';
 import AiSuggestionModal from './AISuggestionModal';
 import SingleEvent from './SingleEvent';
 import { EventData } from '@/lib/definitions';
-import { useFocusEffect, useNavigationState } from '@react-navigation/native';
+import { captureMessage } from '@sentry/react-native';
 
 type EventSectionProps = {
     selectedDate: string;
@@ -35,6 +35,10 @@ export default function EventSection({ selectedDate, schedule, otherSchedule }: 
                         <TouchableOpacity
                             style={styles.floatingButton}
                             onPress={() => {
+                                captureMessage('Action: Event Section: Opened AI Suggestion Modal', {
+                                    level: 'info',
+                                    extra: { selectedDate }
+                                });
                                 setOpenAiSuggestionModal(true);
                             }}
                         >
@@ -43,6 +47,10 @@ export default function EventSection({ selectedDate, schedule, otherSchedule }: 
                         <TouchableOpacity
                             style={styles.floatingButton}
                             onPress={() => {
+                                captureMessage('Action: Event Section: Opened New Event Modal', {
+                                    level: 'info',
+                                    extra: { selectedDate }
+                                });
                                 setOpenNewEventModal(true);
                             }}
                         >

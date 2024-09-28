@@ -5,6 +5,7 @@ import { router } from 'expo-router';
 import { EventData } from '@/lib/definitions';
 import { storeDataAsyncStorage } from '@/lib/utils/AsyncStorage';
 import { formatTitleToId } from '@/lib/utils/textUtils';
+import { captureMessage } from '@sentry/react-native';
 
 type SingleEventProps = {
     event: EventData;
@@ -18,10 +19,18 @@ export default function SuggestedEvent({ event, closeModal }: SingleEventProps) 
         const eventTitle = formatTitleToId(event.title);
         storeDataAsyncStorage(eventTitle, event);
         setResponse('accepted');
+        captureMessage('Action: Suggested Event: Accepted event', { 
+            level: 'info',
+            extra: { event: JSON.stringify(event) },
+         });
     };
 
     const handleReject = () => {
         setResponse('rejected');
+        captureMessage('Action: Suggested Event: Rejected event', { 
+            level: 'info',
+            extra: { event: JSON.stringify(event) },
+         });
     };
 
     const handleEventPress = () => {
@@ -36,7 +45,7 @@ export default function SuggestedEvent({ event, closeModal }: SingleEventProps) 
         <View style={styles.eventBox}>
             <TouchableOpacity
                 style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}
-                onPress={handleEventPress}  // Call handleEventPress to handle navigation and close the modal
+                onPress={handleEventPress}  
             >
                 <View>
                     <ThemedText style={styles.eventTitle}>{event.title}</ThemedText>

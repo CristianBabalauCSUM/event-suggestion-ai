@@ -1,6 +1,7 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
+import { captureMessage } from "@sentry/react-native";
 
 interface CalendarGridProps {
   selectedDate: string;
@@ -20,7 +21,13 @@ const CalendarGrid = ({ selectedDate, daysInMonth, onSelectDate }: CalendarGridP
             styles.dayBox,
             selectedDate === dayString ? styles.selectedDay : null,
           ]}
-          onPress={() => onSelectDate(dayString)}
+          onPress={() => {
+            onSelectDate(dayString);
+            captureMessage("Action: Calendar Grid: Selected date", {
+              level: "info",
+              extra: { dayString },
+            });
+          }}
         >
           <ThemedText style={styles.dayText}>{i}</ThemedText>
         </TouchableOpacity>

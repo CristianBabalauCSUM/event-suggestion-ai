@@ -14,7 +14,7 @@ import {
 
 
 export default function ModalHomePageSurvey() {
-  const [isSurveyVisible, setSurveyVisible] = useState(true);
+  const [isSurveyVisible, setSurveyVisible] = useState(false);
 
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: string]: string | null;

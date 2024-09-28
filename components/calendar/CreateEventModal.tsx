@@ -1,6 +1,10 @@
 import { StyleSheet, Text, View, Modal, TextInput, Button, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { ThemedText } from '../ThemedText';
+import { EventData } from '@/lib/definitions';
+import { formatTitleToId, getDurationInMinutes, isStartTimeBeforeEndTime } from '@/lib/utils/textUtils';
+import { storeDataAsyncStorage } from '@/lib/utils/AsyncStorage';
+import { captureMessage } from '@sentry/react-native';
 
 type CreateEventModalProps = {
   date: string;
@@ -14,20 +18,76 @@ export default function CreateEventModal({ isOpen, closeModal, date }: CreateEve
   const [location, setLocation] = useState('');
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
-  const [time, setTime] = useState('');
+  const [error, setError] = useState('');  
+  const [errorCount, setErrorCount] = useState(0); 
+  const now = new Date();
 
-  const handleSave = () => {
-    const newEvent = {
+  const handleSave = async () => {
+    setError('');
+
+    if (!title || !start || !end || !location || !description) {
+      captureMessage('Error: Event creation: Missing required fields', {
+        level: 'error',
+        extra: { title, start, end, location },
+      });
+      setError('Please fill in all required fields.');
+      setErrorCount(prevCount => prevCount + 1);  
+      return;
+    }
+
+    if (!start.match(/^\d{1,2}:\d{2}$/) || !end.match(/^\d{1,2}:\d{2}$/)) {
+      captureMessage('Error: Event creation: Invalid time format', {
+        level: 'error',
+        extra: { start, end },
+      });
+      setError('Invalid time format. Please use HH:mm.');
+      setErrorCount(prevCount => prevCount + 1);
+      return;
+    }
+
+    if (!isStartTimeBeforeEndTime(start, end)) {
+      captureMessage('Error: Event creation: Start time is after end time', {
+        level: 'error',
+        extra: { start, end },
+      });
+      setError('Start time must be before the end time.');
+      setErrorCount(prevCount => prevCount + 1);
+      return;
+    }
+
+    const duration = getDurationInMinutes(start, end);
+    const startDate = date + 'T' + start;
+    const endDate = date + 'T' + end;
+
+    const newEvent: EventData = {
       title,
       description,
       location,
-      start,
-      end,
-      time,
-      duration: 60,
+      start: startDate,
+      end: endDate,
+      duration: duration,
+      time: start + ' - ' + end,
+      date,
+      type: ['personal'],
+      image: require('@/assets/images/icon.png'),
     };
 
-    console.log('New event created:', newEvent);
+    const key = formatTitleToId(title);
+    await storeDataAsyncStorage(key, newEvent);
+
+    captureMessage('Action: Event creation: Saved event', {
+      level: 'info',
+      extra: { newEvent }
+    });
+
+    const timeTaken = new Date().getTime() - now.getTime();
+    const timeTakenInSeconds = timeTaken / 1000;
+    captureMessage('Action: Event creation: Time taken', {
+      level: 'info',
+      extra: { timeTakenInSeconds , errorCount},
+    });
+
+    setErrorCount(0);
     closeModal();
   };
 
@@ -40,13 +100,13 @@ export default function CreateEventModal({ isOpen, closeModal, date }: CreateEve
     >
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
-          <ThemedText style={styles.modalTitle}>Create New Event</ThemedText>
+          <ThemedText style={styles.modalTitle}>Create New Event | {date}</ThemedText>
+
           <TextInput
             style={styles.input}
             placeholder="Title"
             value={title}
             onChangeText={setTitle}
-
           />
           <TextInput
             style={styles.input}
@@ -62,23 +122,19 @@ export default function CreateEventModal({ isOpen, closeModal, date }: CreateEve
           />
           <TextInput
             style={styles.input}
-            placeholder="Start (e.g. 2024-09-01T07:00:00)"
+            placeholder="Start Time (e.g. 7:00)"
             value={start}
             onChangeText={setStart}
           />
           <TextInput
             style={styles.input}
-            placeholder="End (e.g. 2024-09-01T08:00:00)"
+            placeholder="End Time (e.g. 8:00)"
             value={end}
             onChangeText={setEnd}
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Time (e.g. 7:00 AM - 8:00 AM)"
-            value={time}
-            onChangeText={setTime}
-          />
-
+           {error ? (
+            <Text style={styles.errorText}>{error}</Text>  
+          ) : null}
           <View>
             <TouchableOpacity onPress={handleSave} style={{ alignItems: 'center' }}>
               <ThemedText style={{ color: "blue" }}>Save Event</ThemedText>
@@ -88,6 +144,8 @@ export default function CreateEventModal({ isOpen, closeModal, date }: CreateEve
               <ThemedText style={{ color: "red" }}>Cancel</ThemedText>
             </TouchableOpacity>
           </View>
+
+         
         </View>
       </View>
     </Modal>
@@ -99,7 +157,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
     width: '90%',
@@ -125,5 +183,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 15,
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
+    textAlign: 'center',
   },
 });
