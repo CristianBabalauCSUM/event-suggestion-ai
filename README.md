@@ -1,50 +1,15 @@
-# Welcome to your Expo app 👋
+# Event Scheduler with AI Integration (React Native + Python)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Project Overview
 
-## Get started
+This project is part of an Intelligent User Interfaces (IUI) assignment, integrating a React Native + Expo frontend with a Python backend using the Ollama 3.1 model. The application helps users schedule events on a calendar. Users can manually input events or, by leveraging AI, get smart suggestions for activities and events based on their preferences.
 
-1. Install dependencies
+## Core Features
 
-   ```bash
-   npm install
-   ```
+	•	Manual Event Creation: Users can manually add events to a calendar using an intuitive mobile interface.
+	•	AI-Assisted Event Suggestions: By clicking a button, users can get AI-suggested activities/events, making the scheduling process faster and more personalized.
+	•	Cross-Platform Compatibility: Built with React Native, the app runs on both iOS and Android.
 
-2. Start the app
+## Architecture Overview
 
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project follows a client-server architecture where the frontend (React Native) interacts with the backend (Python) using HTTP requests. The user input from the mobile app is sent to the backend, which processes it with AI and returns event suggestions or handles event creation tasks.
