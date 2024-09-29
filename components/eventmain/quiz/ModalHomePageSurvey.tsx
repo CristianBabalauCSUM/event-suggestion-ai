@@ -3,7 +3,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import React, { useState, useRef } from "react";
 import {
   View,
-  Text,
   Modal,
   StyleSheet,
   TouchableOpacity,
@@ -13,7 +12,7 @@ import {
 
 
 export default function ModalHomePageSurvey() {
-  const [isSurveyVisible, setSurveyVisible] = useState(false);
+  const [isSurveyVisible, setSurveyVisible] = useState(true);
 
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: string]: string | null;
@@ -121,7 +120,7 @@ export default function ModalHomePageSurvey() {
               ]}
               onPress={() => handleOptionPress(option, item.stateKey)}
               > 
-                <Text style={styles.optionText}>{option}</Text>
+                <ThemedText style={styles.optionText}>{option}</ThemedText>
               </TouchableOpacity>
             )
           )
@@ -158,7 +157,7 @@ export default function ModalHomePageSurvey() {
       <View style={styles.blurBackground}>
         <View style={styles.surveyContainer}>
           <TouchableOpacity onPress={closeSurvey}>
-            <Text>Close</Text>
+            <ThemedText>Close</ThemedText>
           </TouchableOpacity>
 
           <FlatList

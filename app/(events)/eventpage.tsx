@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet, Animated, TouchableOpacity } from "react-native";
+import { View, Image, StyleSheet, Animated, TouchableOpacity } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { getDataAsyncStorage, removeDataAsyncStorage, storeDataAsyncStorage } from "@/lib/utils/AsyncStorage";
+import { getEventDataAsyncStorage, removeDataAsyncStorage, storeEventAsyncStorage } from "@/lib/utils/AsyncStorage";
 import { formatTitleToId } from "@/lib/utils/textUtils";
 import { ThemedText } from "@/components/ThemedText";
 import { EventData } from "@/lib/definitions";
@@ -27,14 +27,13 @@ export default function EventPage() {
   useEffect(() => {
     const checkSubscriptionStatus = async () => {
       try {
-        const isSubscribed = await getDataAsyncStorage(eventTitle);
+        const isSubscribed = await getEventDataAsyncStorage(eventTitle);
         if (isSubscribed) {
           setSubscriptionStatus({
             isSubscribed: true,
             buttonText: 'Unsubscribe',
             subscribeText: 'You are already subscribed!',
           });
-
         }
       } catch (error) {
         console.error('Error checking subscription status', error);
@@ -48,7 +47,7 @@ export default function EventPage() {
   if (!parsedItem) {
     return (
       <View style={styles.container}>
-        <Text style={styles.error}>No event data available.</Text>
+        <ThemedText style={styles.error}>No event data available.</ThemedText>
       </View>
     );
   }
@@ -65,7 +64,7 @@ export default function EventPage() {
       });
 
     } else {
-      storeDataAsyncStorage(eventTitle, parsedItem);
+      storeEventAsyncStorage(eventTitle, parsedItem);
 
       setSubscriptionStatus({
         isSubscribed: true,
@@ -124,7 +123,7 @@ export default function EventPage() {
 
       {showPopup && (
         <Animated.View style={[styles.popup, { opacity: fadeAnim }]}>
-          <Text style={styles.popupText}>{subscriptionStatus.subscribeText}</Text>
+          <ThemedText style={styles.popupText}>{subscriptionStatus.subscribeText}</ThemedText>
         </Animated.View>
       )}
     </>

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ThemedText } from '../ThemedText';
 import { router } from 'expo-router';
 import { EventData } from '@/lib/definitions';
-import { storeDataAsyncStorage } from '@/lib/utils/AsyncStorage';
+import { storeEventAsyncStorage } from '@/lib/utils/AsyncStorage';
 import { formatTitleToId } from '@/lib/utils/textUtils';
 import { captureMessage } from '@sentry/react-native';
 
@@ -17,7 +17,7 @@ export default function SuggestedEvent({ event, closeModal }: SingleEventProps) 
 
     const handleAccept = () => {
         const eventTitle = formatTitleToId(event.title);
-        storeDataAsyncStorage(eventTitle, event);
+        storeEventAsyncStorage(eventTitle, event);
         setResponse('accepted');
         captureMessage('Action: Suggested Event: Accepted event', { 
             level: 'info',

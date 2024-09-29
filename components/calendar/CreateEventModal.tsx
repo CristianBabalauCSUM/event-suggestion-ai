@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View, Modal, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Modal, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { ThemedText } from '../ThemedText';
 import { EventData } from '@/lib/definitions';
 import { formatTitleToId, getDurationInMinutes, isStartTimeBeforeEndTime } from '@/lib/utils/textUtils';
-import { storeDataAsyncStorage } from '@/lib/utils/AsyncStorage';
+import { storeEventAsyncStorage } from '@/lib/utils/AsyncStorage';
 import { captureMessage } from '@sentry/react-native';
 
 type CreateEventModalProps = {
@@ -73,7 +73,7 @@ export default function CreateEventModal({ isOpen, closeModal, date }: CreateEve
     };
 
     const key = formatTitleToId(title);
-    await storeDataAsyncStorage(key, newEvent);
+    await storeEventAsyncStorage(key, newEvent);
 
     captureMessage('Action: Event creation: Saved event', {
       level: 'info',
@@ -133,7 +133,7 @@ export default function CreateEventModal({ isOpen, closeModal, date }: CreateEve
             onChangeText={setEnd}
           />
            {error ? (
-            <Text style={styles.errorText}>{error}</Text>  
+            <ThemedText style={styles.errorText}>{error}</ThemedText>  
           ) : null}
           <View>
             <TouchableOpacity onPress={handleSave} style={{ alignItems: 'center' }}>

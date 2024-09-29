@@ -1,17 +1,34 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventData } from '../definitions';
 
-export const storeDataAsyncStorage = async (key: string, value: EventData) => {
+export const storeEventAsyncStorage = async (key: string, value: EventData) => {
   try {
-    await AsyncStorage.setItem(key, JSON.stringify(value)); 
+    await storeDataAsyncStorage(key, JSON.stringify(value));
+  } catch (error) {
+    console.error('Error storing event', error);
+  }
+};
+
+export const storeDataAsyncStorage = async (key: string, value: string) => {
+  try {
+    await AsyncStorage.setItem(key, value); 
   } catch (error) {
     console.error('Error storing data', error);
   }
 };
 
-export const getDataAsyncStorage = async (key: string) : Promise<EventData | null> => {
+export const getDataAsyncStorage = async (key: string): Promise<string | null> => {
   try {
-    const value = await AsyncStorage.getItem(key);
+    return await AsyncStorage.getItem(key);
+  } catch (error) {
+    console.error('Error retrieving data', error);
+  }
+  return null;
+}
+
+export const getEventDataAsyncStorage = async (key: string) : Promise<EventData | null> => {
+  try {
+    const value = await getDataAsyncStorage(key);
     if (value !== null) {
       return JSON.parse(value) as EventData;
     }
