@@ -30,9 +30,8 @@ class UserScheduleRequest(BaseModel):
 
 @app.post("/schedule")
 async def prompt(userSchedule: UserScheduleRequest):
-    print("userSchedule")
+    print("Request received")
     newSchedule = generate_prompt(userSchedule.today, userSchedule.otherSchedule)
-    print("newSchedule")
     return {"suggestions": newSchedule}
 
 

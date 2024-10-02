@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import SuggestedEvent from './SuggestedEvent';
 import { ThemedText } from '../ThemedText';
 import { EventData } from '@/lib/definitions';
+import { AISUGGESTION } from '@/constants/data/AISuggestions';
 
 type AiSuggestionModalProps = {
     date: string;
@@ -18,43 +19,12 @@ const { width, height } = Dimensions.get('window');
 export default function AiSuggestionModal({ date, isOpen, closeModal, todaySchedule, otherSchedule }: AiSuggestionModalProps) {
 
     const [aiSuggestions, setAiSuggestions] = useState<EventData[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const cleanScheduleData = (schedule: EventData[]) => {
-            return schedule.map(({ image, ...rest }) => rest);
-        };
-
         const getSuggestion = async () => {
-            try {
-                const response = await fetch("http://localhost:8000/schedule", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        today: cleanScheduleData(todaySchedule),
-                        otherSchedule: cleanScheduleData(otherSchedule),
-                    }),
-                });
-
-                const data = await response.json();
-                console.log("Suggestions fetched:", data);
-                const suggestions = JSON.parse(data.suggestions);
-                suggestions.map((suggestion: any) => {
-                    suggestion.image = require('@/assets/images/icon.png');
-                    suggestion.date = date;
-                    return suggestion;
-                });
-                setAiSuggestions(suggestions);
-            } catch (error) {
-                console.error("Error fetching suggestions:", error);
-            } finally {
-                setIsLoading(false);
-            }
+            setAiSuggestions(AISUGGESTION[date]);
         };
-
-        if (aiSuggestions.length === 0 && isOpen) getSuggestion();
+        if (isOpen) getSuggestion();
     }, [aiSuggestions.length, date, isOpen, otherSchedule, todaySchedule]);
 
     return (
@@ -70,15 +40,11 @@ export default function AiSuggestionModal({ date, isOpen, closeModal, todaySched
                         <ThemedText style={styles.modalTitle}>AI Suggestions | {date}</ThemedText>
 
                         <ScrollView style={styles.suggestionsList} contentContainerStyle={styles.scrollContent}>
-                            {isLoading ? (
-                                <ThemedText style={styles.noSuggestionsText}>Loading...</ThemedText>
-                            ) : aiSuggestions.length ? (
+                            {
                                 aiSuggestions.map((event, index) => (
                                     <SuggestedEvent key={index} event={event} closeModal={closeModal} />
                                 ))
-                            ) : (
-                                <ThemedText style={styles.noSuggestionsText}>No suggestions available</ThemedText>
-                            )}
+                            }
                         </ScrollView>
 
                         <TouchableOpacity
