@@ -8,7 +8,7 @@ import { ThemedText } from "@/components/ThemedText";
 import EventSection from "@/components/calendar/EventSection";
 import { getEvents, getOtherEvents } from "@/lib/utils/FilterEvents";
 import CalendarGrid from "@/components/calendar/CalendarGrid";
-import { getAllItemsAsync } from "@/lib/utils/AsyncStorage";
+import { getAllItemsAsync } from "@/lib/AsyncStorage";
 import { EventData } from "@/lib/definitions";
 import { SCHEDULE } from "@/constants/data/Schedules";
 import { useIsFocused } from "@react-navigation/native";

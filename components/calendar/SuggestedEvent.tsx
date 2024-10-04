@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ThemedText } from '../ThemedText';
 import { router } from 'expo-router';
 import { EventData } from '@/lib/definitions';
-import { storeEventAsyncStorage } from '@/lib/utils/AsyncStorage';
+import { storeEventAsyncStorage } from '@/lib/AsyncStorage';
 import { formatTitleToId } from '@/lib/utils/textUtils';
 import { captureMessage } from '@sentry/react-native';
 

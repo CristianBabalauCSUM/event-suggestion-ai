@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet, Animated, TouchableOpacity } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { getEventDataAsyncStorage, removeDataAsyncStorage, storeEventAsyncStorage } from "@/lib/utils/AsyncStorage";
+import { getEventDataAsyncStorage, removeDataAsyncStorage, storeEventAsyncStorage } from "@/lib/AsyncStorage";
 import { formatTitleToId } from "@/lib/utils/textUtils";
 import { ThemedText } from "@/components/ThemedText";
 import { EventData } from "@/lib/definitions";

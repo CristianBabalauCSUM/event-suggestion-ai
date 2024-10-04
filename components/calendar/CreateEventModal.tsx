@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ThemedText } from '../ThemedText';
 import { EventData } from '@/lib/definitions';
 import { formatTitleToId, getDurationInMinutes, isStartTimeBeforeEndTime } from '@/lib/utils/textUtils';
-import { storeEventAsyncStorage } from '@/lib/utils/AsyncStorage';
+import { storeEventAsyncStorage } from '@/lib/AsyncStorage';
 import { captureMessage } from '@sentry/react-native';
 
 type CreateEventModalProps = {

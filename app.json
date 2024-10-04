@@ -40,6 +40,12 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "69d8ee88-f490-4ff2-bd8a-23b7d38368f3"
+      }
+    },
+    "owner": "codetoby"
   }
 }
