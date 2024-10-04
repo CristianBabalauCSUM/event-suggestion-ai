@@ -21,7 +21,7 @@ export default function AiSuggestionModal({ date, isOpen, closeModal, todaySched
     const [aiSuggestions, setAiSuggestions] = useState<EventData[]>([]);
 
     useEffect(() => {
-        const getSuggestion = async () => {
+        const getSuggestion = () => {
             setAiSuggestions(AISUGGESTION[date]);
         };
         if (isOpen) getSuggestion();

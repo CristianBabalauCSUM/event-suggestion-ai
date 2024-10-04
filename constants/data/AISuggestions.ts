@@ -1,7 +1,7 @@
 import { EventData } from "@/lib/definitions";
 
 export const AISUGGESTION = {
-    "2024-09-1": [
+    "2024-09-01": [
         {
             "title": "morning run",
             "description": "a refreshing run in the park.",
@@ -68,7 +68,7 @@ export const AISUGGESTION = {
             ]
         }
     ],
-    "2024-09-2": [
+    "2024-09-02": [
         {
             "title": "morning run",
             "description": "a refreshing run in the park.",
@@ -135,7 +135,7 @@ export const AISUGGESTION = {
             ]
         }
     ],
-    "2024-09-3": [
+    "2024-09-03": [
         {
             "title": "morning run",
             "description": "a refreshing run in the park.",
@@ -203,7 +203,7 @@ export const AISUGGESTION = {
             ]
         }
     ],
-    "2024-09-4": [
+    "2024-09-04": [
         {
             "title": "morning run",
             "description": "a refreshing run in the park.",
@@ -271,7 +271,7 @@ export const AISUGGESTION = {
             ]
         }
     ],
-    "2024-09-5": [
+    "2024-09-05": [
         {
             "title": "Breakfast in a café",
             "description": "Enjoy a quiet breakfast in a cozy café.",
@@ -352,7 +352,7 @@ export const AISUGGESTION = {
             ]
         }
     ],
-    "2024-09-6": [
+    "2024-09-06": [
         {
             "title": "morning walk",
             "description": "a relaxing morning walk with pets",
@@ -407,7 +407,7 @@ export const AISUGGESTION = {
             ]
         }
     ],
-    "2024-09-7": [
+    "2024-09-07": [
         {
             "title": "morning run",
             "description": "a refreshing run in the park",
@@ -475,7 +475,7 @@ export const AISUGGESTION = {
             ]
         }
     ],
-    "2024-09-8": [
+    "2024-09-08": [
         {
             "title": "Breakfast at a Cafe",
             "description": "A quiet breakfast at a cozy cafe to start the day.",
@@ -542,7 +542,7 @@ export const AISUGGESTION = {
             ]
         }
     ],
-    "2024-09-9": [
+    "2024-09-09": [
         {
             "title": "morning run",
             "description": "a refreshing run in the park.",

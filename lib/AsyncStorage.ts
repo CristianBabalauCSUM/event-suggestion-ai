@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { EventData } from '../definitions';
+import { EventData } from './definitions';
 
 export const storeEventAsyncStorage = async (key: string, value: EventData) => {
   try {

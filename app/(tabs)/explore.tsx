@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { useState, memo } from "react";
-import { getAllItemsAsync } from "@/lib/utils/AsyncStorage";
+import { getAllItemsAsync } from "@/lib/AsyncStorage";
 import { router, useFocusEffect } from "expo-router";
 import React from "react";
 import { EventData } from "@/lib/definitions";
