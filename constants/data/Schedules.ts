@@ -2,14 +2,14 @@ import { EventData } from "@/lib/definitions";
 
 export const SCHEDULE: EventData[] = [
     {
-        title: 'Morning Yoga',
+        title: 'Morning Yoga in the Park',
         description: 'A relaxing morning yoga session',
         location: 'Park',
         start: '2024-09-01T07:00:00',
         end: '2024-09-01T08:00:00',
         duration: 60,
         time: '7:00 AM - 8:00 AM',
-        image: require('@/assets/images/icon.png'),
+        image: require('@/assets/images/yoga_park.jpeg'),
         type: ['Exercise', 'Health'],
         date: '2024-09-01',
     },
