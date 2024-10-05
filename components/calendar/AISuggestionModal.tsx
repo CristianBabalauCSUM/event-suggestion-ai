@@ -5,6 +5,8 @@ import SuggestedEvent from './SuggestedEvent';
 import { ThemedText } from '../ThemedText';
 import { EventData } from '@/lib/definitions';
 import { AISUGGESTION } from '@/constants/data/AISuggestions';
+import { getDurationInMinutesFromDate } from '@/lib/utils/textUtils';
+import { captureMessage } from '@sentry/react-native';
 
 type AiSuggestionModalProps = {
     date: string;
@@ -19,6 +21,19 @@ const { width, height } = Dimensions.get('window');
 export default function AiSuggestionModal({ date, isOpen, closeModal, todaySchedule, otherSchedule }: AiSuggestionModalProps) {
 
     const [aiSuggestions, setAiSuggestions] = useState<EventData[]>([]);
+    const now = new Date();
+    let clickedEvents = 0;
+
+    const timeTaken = () => {
+        if (clickedEvents !== 0) return 0;
+        const time = new Date();
+        const difference = getDurationInMinutesFromDate(now, time);
+        captureMessage('Action: AI Suggestion Modal: Time taken to accept/reject event', {
+            level: 'info',
+            extra: { difference },
+        });
+        clickedEvents++;
+    }
 
     useEffect(() => {
         const getSuggestion = () => {
@@ -42,7 +57,7 @@ export default function AiSuggestionModal({ date, isOpen, closeModal, todaySched
                         <ScrollView style={styles.suggestionsList} contentContainerStyle={styles.scrollContent}>
                             {
                                 aiSuggestions.map((event, index) => (
-                                    <SuggestedEvent key={index} event={event} closeModal={closeModal} />
+                                    <SuggestedEvent key={index} event={event} closeModal={closeModal} timeTaken={timeTaken}/>
                                 ))
                             }
                         </ScrollView>

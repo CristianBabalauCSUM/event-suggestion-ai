@@ -2,7 +2,7 @@ import { StyleSheet, View, Modal, TextInput, TouchableOpacity } from 'react-nati
 import React, { useState } from 'react';
 import { ThemedText } from '../ThemedText';
 import { EventData } from '@/lib/definitions';
-import { formatTitleToId, getDurationInMinutes, isStartTimeBeforeEndTime } from '@/lib/utils/textUtils';
+import { formatTitleToId, getDurationInMinutesFromString, isStartTimeBeforeEndTime } from '@/lib/utils/textUtils';
 import { storeEventAsyncStorage } from '@/lib/AsyncStorage';
 import { captureMessage } from '@sentry/react-native';
 
@@ -55,7 +55,7 @@ export default function CreateEventModal({ isOpen, closeModal, date }: CreateEve
       return;
     }
 
-    const duration = getDurationInMinutes(start, end);
+    const duration = getDurationInMinutesFromString(start, end);
     const startDate = date + 'T' + start;
     const endDate = date + 'T' + end;
 

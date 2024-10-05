@@ -9,7 +9,7 @@ export function formatTitleToId(title: string) {
     return title.replace(/ /g, '-').toLowerCase();
 }
 
-export function getDurationInMinutes(startTime: string, endTime: string) {
+export function getDurationInMinutesFromString(startTime: string, endTime: string) {
     const [startHour, startMinute] = startTime.split(':').map(Number);
     const [endHour, endMinute] = endTime.split(':').map(Number);
 
@@ -20,7 +20,11 @@ export function getDurationInMinutes(startTime: string, endTime: string) {
     const endDate = new Date();
     endDate.setHours(endHour, endMinute, 0, 0);
 
-    const difference = endDate.getTime() - startDate.getTime();
+    return getDurationInMinutesFromDate(startDate, endDate);
+}
+
+export function getDurationInMinutesFromDate(startTime: Date, endTime: Date) {
+    const difference = endTime.getTime() - startTime.getTime();
 
     const totalMinutes = Math.floor(difference / (1000 * 60));
 

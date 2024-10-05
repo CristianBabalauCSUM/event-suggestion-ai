@@ -10,9 +10,10 @@ import { captureMessage } from '@sentry/react-native';
 type SingleEventProps = {
     event: EventData;
     closeModal: () => void; 
+    timeTaken: () => void; 
 };
 
-export default function SuggestedEvent({ event, closeModal }: SingleEventProps) {
+export default function SuggestedEvent({ event, closeModal, timeTaken }: SingleEventProps) {
     const [response, setResponse] = useState<string | null>(null);
 
     const handleAccept = () => {
@@ -23,6 +24,7 @@ export default function SuggestedEvent({ event, closeModal }: SingleEventProps) 
             level: 'info',
             extra: { event: JSON.stringify(event) },
          });
+        timeTaken();
     };
 
     const handleReject = () => {
@@ -31,6 +33,7 @@ export default function SuggestedEvent({ event, closeModal }: SingleEventProps) 
             level: 'info',
             extra: { event: JSON.stringify(event) },
          });
+        timeTaken();
     };
 
     const handleEventPress = () => {
