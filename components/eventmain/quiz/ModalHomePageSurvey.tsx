@@ -1,4 +1,5 @@
 import { ThemedText } from "@/components/ThemedText";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState, useRef } from "react";
 import {
@@ -11,7 +12,11 @@ import {
 } from "react-native";
 
 
-export default function ModalHomePageSurvey() {
+interface ModalHomePageSurveyProps {
+  onComplete: () => void;  // Add the callback prop
+}
+
+export default function ModalHomePageSurvey({ onComplete }: ModalHomePageSurveyProps) {
   const [isSurveyVisible, setSurveyVisible] = useState(true);
 
   const [selectedOptions, setSelectedOptions] = useState<{
@@ -29,7 +34,7 @@ export default function ModalHomePageSurvey() {
     {
       id: "1",
       question: "Do you want to go out today?",
-      options: ["😄", "😐", "🙁"],
+      options: ["😶", "😌", "😁"],
       stateKey: "question1",
     },
     {
@@ -46,8 +51,11 @@ export default function ModalHomePageSurvey() {
     },
   ];
 
-  const closeSurvey = () => {
-    setSurveyVisible(false)
+  const handleSurveyFinish = async () => {
+    await AsyncStorage.setItem('surveyChoice', JSON.stringify(selectedOptions));
+
+    setSurveyVisible(false);
+    onComplete();
   };
 
   const handleOptionPress = (option: any, questionKey: any) => {
@@ -136,7 +144,7 @@ export default function ModalHomePageSurvey() {
         !Object.values(selectedOptions).some(option => option === null) &&
           styles.activeSubmitButton,
       ]}
-      onPress={closeSurvey}
+      onPress={handleSurveyFinish}
       disabled={
         Object.values(selectedOptions).some(option => option === null)
       }
@@ -156,7 +164,7 @@ export default function ModalHomePageSurvey() {
     <Modal visible={isSurveyVisible} animationType="fade" transparent={true}>
       <View style={styles.blurBackground}>
         <View style={styles.surveyContainer}>
-          <TouchableOpacity onPress={closeSurvey}>
+          <TouchableOpacity onPress={handleSurveyFinish}>
             <ThemedText>Close</ThemedText>
           </TouchableOpacity>
 

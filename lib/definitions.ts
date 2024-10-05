@@ -9,6 +9,8 @@ export interface EventData {
     duration: number;
     time: string;
     image: ImageSourcePropType;
+    social?: number;
+    sentiment?: number;
     type: string[];
     date: string;
 }

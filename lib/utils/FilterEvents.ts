@@ -22,3 +22,4 @@ export const getEvents = (calendarSchedule: EventData[], selectedDate: string) :
 export const getOtherEvents = (calendarSchedule: EventData[], selectedDate: string) : EventData[] => {
   return calendarSchedule.filter((event) => selectedDate !== event.date);
 };
+
