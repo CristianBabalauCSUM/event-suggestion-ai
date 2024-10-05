@@ -14,8 +14,20 @@ export function UserModal({ visible, onClose }: UserModalProps) {
     const [response, setResponse] = useState('');
     
     const save = () => {
+        if (!username) {
+            setResponse('Username cannot be empty');
+            return;
+        }
         Sentry.setUser({ username: username });
         setResponse('Username saved');
+    }
+
+    const close = () => {
+        if (!username) {
+            setResponse('Username cannot be empty');
+            return;
+        }
+        onClose();
     }
 
     return (
@@ -42,7 +54,7 @@ export function UserModal({ visible, onClose }: UserModalProps) {
                         <ThemedText style={styles.saveButtonText}>Save</ThemedText>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+                    <TouchableOpacity onPress={close} style={styles.closeButton}>
                         <ThemedText style={styles.closeButtonText}>Close</ThemedText>
                     </TouchableOpacity>
                 </View>
