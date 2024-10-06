@@ -114,6 +114,7 @@ export const SliderData: EventData[] = [
         image: require('@/assets/images/football_tour.webp'),
         date: '2024-09-14',
     },
+    
 
     {
         title: 'Meditation in the Park',

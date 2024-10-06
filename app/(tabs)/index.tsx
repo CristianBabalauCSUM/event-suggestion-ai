@@ -34,7 +34,7 @@ export default function EventMainScreen() {
         <SuggestionSquareGrid 
           headerText='Suggested for you' 
           subHeaderText='Based on your survey' 
-          sliced={4}
+          sliced={6}
           isSurveyCompleted={isSurveyCompleted}  // Pass the survey completion status
         />
         <SquareGridEvent headerText='Find new connections' subHeaderText='Check these activities' type='any' sliced={4} />
