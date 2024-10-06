@@ -13,11 +13,11 @@ import {
 
 
 interface ModalHomePageSurveyProps {
-  onComplete: () => void;  // Add the callback prop
+  isVisibile: boolean;
+  onComplete: () => void;
 }
 
-export default function ModalHomePageSurvey({ onComplete }: ModalHomePageSurveyProps) {
-  const [isSurveyVisible, setSurveyVisible] = useState(true);
+export default function ModalHomePageSurvey({ onComplete, isVisibile }: ModalHomePageSurveyProps) {
 
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: string]: string | null;
@@ -53,8 +53,6 @@ export default function ModalHomePageSurvey({ onComplete }: ModalHomePageSurveyP
 
   const handleSurveyFinish = async () => {
     await AsyncStorage.setItem('surveyChoice', JSON.stringify(selectedOptions));
-
-    setSurveyVisible(false);
     onComplete();
   };
 
@@ -161,7 +159,7 @@ export default function ModalHomePageSurvey({ onComplete }: ModalHomePageSurveyP
   );
 
   return (
-    <Modal visible={isSurveyVisible} animationType="fade" transparent={true}>
+    <Modal visible={isVisibile} animationType="fade" transparent={true}>
       <View style={styles.blurBackground}>
         <View style={styles.surveyContainer}>
           <TouchableOpacity onPress={handleSurveyFinish}>

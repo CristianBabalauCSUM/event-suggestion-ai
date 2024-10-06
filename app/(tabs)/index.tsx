@@ -1,33 +1,30 @@
 import { View, ScrollView, TouchableOpacity, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import HeaderView from '@/components/HeaderView';
 import SquareGridEvent from '@/components/eventmain/SquareGridEvent';
 import ModalHomePageSurvey from '@/components/eventmain/quiz/ModalHomePageSurvey';
 import SuggestionSquareGrid from '@/components/eventmain/SuggestionSquareGrid';
 import { Ionicons } from '@expo/vector-icons'; // Import Icon for the button
+import { UserModal } from '@/components/users/UserModal';
 
 export default function EventMainScreen() {
-  const [showUserModal, setShowUserModal] = useState(false);
+  const [showUserModal, setShowUserModal] = useState(true);
+  const [showSurvey, setShowSurvey] = useState(false);
   const [isSurveyCompleted, setIsSurveyCompleted] = useState(false);
 
-
-
   const handleSurveyComplete = () => {
+    setShowSurvey(false);
     setIsSurveyCompleted(true);
   };
 
-  // Function to handle button click and show the survey modal
   const handleSurveyButtonPress = () => {
-    setShowUserModal(true);
+    setShowSurvey(true);
   };
 
   return (
     <View style={{ flex: 1 }}>
-      {showUserModal && (
-        <ModalHomePageSurvey onComplete={handleSurveyComplete} />
-      )}
-
-      {/* Floating green button */}
+      <UserModal visible={showUserModal} onClose={() => setShowUserModal(false)} />
+      <ModalHomePageSurvey isVisibile={showSurvey} onComplete={handleSurveyComplete} />
       <TouchableOpacity 
         style={styles.floatingButton} 
         onPress={handleSurveyButtonPress}
