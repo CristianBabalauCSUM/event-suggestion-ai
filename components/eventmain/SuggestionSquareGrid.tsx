@@ -53,42 +53,45 @@ export default function SuggestionSquareGrid({headerText, subHeaderText, sliced 
           fetchSurveyData();
         }
       }, [isSurveyCompleted]);  // Dependency on survey completion status
+    if (!isSurveyCompleted) {
+        return null;  // Return null if the survey is not completed, meaning nothing is rendered
+    }
+    
+    return (
 
-  return (
-
-    <View style={styles.container} >
-      <ThemedText type="title" style={styles.title}>
-        {headerText}
-      </ThemedText>
-      <ThemedText type="subtitle" style = {styles.subtitle}>
-        {subHeaderText}
+        <View style={styles.container} >
+        <ThemedText type="title" style={styles.title}>
+            {headerText}
         </ThemedText>
-        <FlatList
-        data={events.slice(0, sliced)}
-        renderItem={ ({ item, index }) => (
-          <EventDefaultTab
-            item={item}
-            index={index}
-            containerStyle={{ width: 160, height: 160 }}
-            textStyle={{ fontSize: 16, lineHeight: 20 }}
-            onPress={() => {
-              router.push({
-                pathname: `/(events)/eventpage`,
-                params: { item: JSON.stringify(item), showButton: true.toString()}
-              });
-            }}
-          />
-        )}
-        
-        numColumns={2}
-        scrollEnabled={false} // Disable FlatList scrolling to prevent conflicts
-        columnWrapperStyle={styles.row} // Style for the row
-        contentContainerStyle={styles.grid} // Style for the whole grid
-        ItemSeparatorComponent={ItemSeparator} // Add vertical gap
+        <ThemedText type="subtitle" style = {styles.subtitle}>
+            {subHeaderText}
+            </ThemedText>
+            <FlatList
+            data={events.slice(0, sliced)}
+            renderItem={ ({ item, index }) => (
+            <EventDefaultTab
+                item={item}
+                index={index}
+                containerStyle={{ width: 160, height: 160 }}
+                textStyle={{ fontSize: 16, lineHeight: 20 }}
+                onPress={() => {
+                router.push({
+                    pathname: `/(events)/eventpage`,
+                    params: { item: JSON.stringify(item), showButton: true.toString()}
+                });
+                }}
+            />
+            )}
+            
+            numColumns={2}
+            scrollEnabled={false} // Disable FlatList scrolling to prevent conflicts
+            columnWrapperStyle={styles.row} // Style for the row
+            contentContainerStyle={styles.grid} // Style for the whole grid
+            ItemSeparatorComponent={ItemSeparator} // Add vertical gap
 
-      />
-    </View>
-  );
+        />
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
