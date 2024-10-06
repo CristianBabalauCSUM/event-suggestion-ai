@@ -14,6 +14,7 @@ export default function EventMainScreen() {
 
   const handleSurveyComplete = () => {
     setShowSurvey(false);
+    setIsSurveyCompleted(false);
     setIsSurveyCompleted(true);
   };
 

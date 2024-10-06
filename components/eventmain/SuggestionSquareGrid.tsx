@@ -8,15 +8,9 @@ import { filterEvents } from "@/lib/utils/FilterEvents";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sortEventsBySurvey } from "@/lib/utils/EventScoring";
 import { EventData } from "mapbox-gl";
+import EventSuggestTab from "./EventSuggestTab";
 
 const ItemSeparator = () => <View style={styles.separator} />;
-
-type Props = {
-  headerText: string;
-  subHeaderText: string;
-  sliced: number;
-  anythingElse?: string;
-};
 
 const checkSurvey = async () => {
      
@@ -56,7 +50,7 @@ export default function SuggestionSquareGrid({headerText, subHeaderText, sliced 
     if (!isSurveyCompleted) {
         return null;  // Return null if the survey is not completed, meaning nothing is rendered
     }
-    
+
     return (
 
         <View style={styles.container} >
@@ -69,7 +63,7 @@ export default function SuggestionSquareGrid({headerText, subHeaderText, sliced 
             <FlatList
             data={events.slice(0, sliced)}
             renderItem={ ({ item, index }) => (
-            <EventDefaultTab
+            <EventSuggestTab
                 item={item}
                 index={index}
                 containerStyle={{ width: 160, height: 160 }}

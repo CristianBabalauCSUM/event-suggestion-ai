@@ -162,9 +162,6 @@ export default function ModalHomePageSurvey({ onComplete, isVisibile }: ModalHom
     <Modal visible={isVisibile} animationType="fade" transparent={true}>
       <View style={styles.blurBackground}>
         <View style={styles.surveyContainer}>
-          <TouchableOpacity onPress={handleSurveyFinish}>
-            <ThemedText>Close</ThemedText>
-          </TouchableOpacity>
 
           <FlatList
             ref={flatListRef}
