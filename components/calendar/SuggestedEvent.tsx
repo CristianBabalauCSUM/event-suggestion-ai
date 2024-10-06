@@ -9,16 +9,19 @@ import { captureMessage } from '@sentry/react-native';
 
 type SingleEventProps = {
     event: EventData;
+    date: string;
     closeModal: () => void; 
     timeTaken: () => void; 
 };
 
-export default function SuggestedEvent({ event, closeModal, timeTaken }: SingleEventProps) {
+export default function SuggestedEvent({ date, event, closeModal, timeTaken }: SingleEventProps) {
     const [response, setResponse] = useState<string | null>(null);
 
     const handleAccept = () => {
         const eventTitle = formatTitleToId(event.title);
+        event.date = date;
         storeEventAsyncStorage(eventTitle, event);
+        console.log(event);
         setResponse('accepted');
         captureMessage('Action: Suggested Event: Accepted event', { 
             level: 'info',

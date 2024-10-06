@@ -54,7 +54,6 @@ const CalendarPage = () => {
 };
 
 const styles = StyleSheet.create({
-
   headerTitle: {
     fontSize: 30,
     fontWeight: "800",

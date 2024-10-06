@@ -1,5 +1,5 @@
 import { StyleSheet, View, Modal, TextInput, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ThemedText } from '../ThemedText';
 import { EventData } from '@/lib/definitions';
 import { formatTitleToId, getDurationInMinutesFromString, isStartTimeBeforeEndTime } from '@/lib/utils/textUtils';
@@ -20,7 +20,8 @@ export default function CreateEventModal({ isOpen, closeModal, date }: CreateEve
   const [end, setEnd] = useState('');
   const [error, setError] = useState('');  
   const [errorCount, setErrorCount] = useState(0); 
-  const now = new Date();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [now, _] = useState(new Date());
 
   const handleSave = async () => {
     setError('');
@@ -90,6 +91,15 @@ export default function CreateEventModal({ isOpen, closeModal, date }: CreateEve
     setErrorCount(0);
     closeModal();
   };
+
+  useEffect(() => {
+    setTitle('');
+    setDescription('');
+    setLocation('');
+    setStart('');
+    setEnd('');
+    setError('');
+  }, [date]);
 
   return (
     <Modal

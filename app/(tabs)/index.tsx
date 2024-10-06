@@ -15,18 +15,15 @@ export default function EventMainScreen() {
     setShowUserModal(true);
   }, []);
 
-  // Callback function to update survey status
   const handleSurveyComplete = () => {
     setIsSurveyCompleted(true);
   };
 
-
-
   return (
     <View>
       {showUserModal && (
-        <ModalHomePageSurvey onComplete={handleSurveyComplete} />
-      )}      
+        <UserModal visible={showUserModal} onClose={() => setShowUserModal(!showUserModal)} />
+      )}
       <ScrollView
         scrollEventThrottle={16}
       >
