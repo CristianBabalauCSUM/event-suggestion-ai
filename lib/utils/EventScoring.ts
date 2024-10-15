@@ -5,7 +5,7 @@ const getEventScore = (event: EventData, surveyAnswers: { question1: string; que
   
     const socialMap: { [key: string]: number } = { '😶': 1, '😌': 2, '😁': 3 };
     const surveySocial = socialMap[surveyAnswers.question2];
-    if (event.social === surveySocial) score += 10; // Higher weight if the social levels match
+    if (event.social === surveySocial) score += 10;
   
     const sentimentMap: { [key: string]: number } = { '😶': 1, '😌': 2, '😁': 3 };
     const surveySentiment = sentimentMap[surveyAnswers.question1];
