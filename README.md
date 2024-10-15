@@ -11,8 +11,7 @@ This project is part of an Intelligent User Interfaces (IUI) assignment. The app
 
 ### Prerequisites
 - **Node.js**: Ensure you have Node.js installed on your machine.
-- **Expo CLI**: Install the Expo CLI for running the React Native app with Expo.
-- 
+  
 ### Setup
 
 1. Clone the repository:
